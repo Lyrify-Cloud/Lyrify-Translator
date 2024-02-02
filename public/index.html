@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRT File Translation</title>
+</head>
+<body>
+    <div>
+        <h2>拖拽上传SRT字幕并翻译</h2>
+        <div id="drop-area">
+            <p>拖动SRT字幕文件到此处进行上传</p>
+            <input type="file" id="fileInput" accept=".srt" />
+        </div>
+        <div id="translation-result">
+            <!-- 显示翻译结果的区域 -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropArea = document.getElementById('drop-area');
+            const fileInput = document.getElementById('fileInput');
+            const translationResult = document.getElementById('translation-result');
+
+            fileInput.addEventListener('change', handleFileSelect);
+
+            function handleFileSelect(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    translateSRTFile(file);
+                }
+            }
+
+            async function translateSRTFile(file) {
+                const content = await readFileContent(file);
+                const subtitles = parseSrt(content);
+
+                if (subtitles.length > 0) {
+                    translationResult.innerHTML = '正在翻译...';
+
+                    for (const subtitle of subtitles) {
+                        subtitle.translatedText = await translateSentence(subtitle.text);
+                        translationResult.innerHTML += `<p>${subtitle.translatedText}</p>`;
+                    }
+                }
+            }
+
+            function parseSrt(srt) {
+                return (
+                    srt
+                        .split(/\r|\n/)
+                        .map(s => s.trim())
+                        .filter(str => str.length > 0)
+                        .map(s => ({
+                            lineStr: s,
+                            match: s.match(
+                                /(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})/
+                            )
+                        }))
+                        .filter(
+                            ({ lineStr }, idx, source) =>
+                                !(/^\d+$/.test(lineStr) && source[idx + 1]?.match != null)
+                        )
+                        .reduce(
+                            (acc, { lineStr, match }) => {
+                                if (match == null) {
+                                    const last = acc.at(-1)
+                                    if (last == null) return acc
+
+                                    last.text += last.text.length === 0 ? lineStr : `\n${lineStr}`
+                                } else {
+                                    acc.push({
+                                        start: srtTimeToSeconds(match[1]),
+                                        end: srtTimeToSeconds(match[2]),
+                                        text: ''
+                                    })
+                                }
+
+                                return acc
+                            },
+                            []
+                        )
+                )
+            }
+
+            async function translateSentence(sentence) {
+                // 替换成你的后端翻译接口
+                const translationEndpoint = '/translate';
+                const response = await fetch(translationEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // 可以添加其他头部信息，如认证等
+                    },
+                    body: JSON.stringify({ sentence: sentence })
+                });
+                const result = await response.json();
+                return result.translatedText;
+            }
+
+            function readFileContent(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        resolve(event.target.result);
+                    };
+                    reader.onerror = (error) => {
+                        reject(error);
+                    };
+                    reader.readAsText(file);
+                });
+            }
+
+            function srtTimeToSeconds(time) {
+                const match = time.match(/(\d{2}):(\d{2}):(\d{2}),(\d{3})/)
+                if (match == null) throw Error(`time format error: ${time}`)
+
+                const hours = Number(match[1])
+                const minutes = Number(match[2])
+                const seconds = Number(match[3])
+                const milliseconds = Number(match[4])
+
+                return hours * 60 * 60 + minutes * 60 + seconds + milliseconds / 1000
+            }
+        });
+    </script>
+    <style>
+        #drop-area {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #drop-area.highlight {
+            border-color: #2196F3;
+        }
+    </style>
+</body>
+</html>
