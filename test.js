@@ -1,16 +1,19 @@
+require('dotenv').config()
 const DeepLX_require = require('./translate/deeplx');
 const Microsoft_require = require('./translate/microsoft');
 const ChatGPT_require = require('./translate/chatgpt');
 const Google_require = require('./translate/google');
 const m2m100_require = require('./translate/m2m100');
+const niutrans_require = require('./translate/niutrans');
 
 const DeepLX = new DeepLX_require('https://api.sipc.ink/translate');
 const Microsoft = new Microsoft_require();
-const ChatGPT = new ChatGPT_require();
+const ChatGPT = new ChatGPT_require(process.env.GPT_Key,process.env.GPT_API);
 const Google = new Google_require();
 const m2m100 = new m2m100_require();
+const niutrans = new niutrans_require(process.env.niutrans_Key);
 
-const textToTranslate = "Intellij platform i18n plugin，Auto translate 131 languages for your application with one click，Support Android strings.xml and java .properties file";
+const textToTranslate = "textToTranslate";
 const sourceLanguage = 'en'
 const targetLanguage = 'zh';
 console.log(`Original: ${textToTranslate}`);
@@ -52,5 +55,13 @@ m2m100.translate(textToTranslate, targetLanguage, sourceLanguage)
         console.log(`m2m100: ${translatedText}`);
     })
     .catch(error => {
-        console.error(`Google error: ${error.message}`);
+        console.error(`m2m100 error: ${error.message}`);
+    });
+
+niutrans.translate(textToTranslate, targetLanguage, sourceLanguage)
+    .then(translatedText => {
+        console.log(`niutrans: ${translatedText}`);
+    })
+    .catch(error => {
+        console.error(`niutrans error: ${error.message}`);
     });
