@@ -71,5 +71,5 @@ app.post('/language', async function (req, res) {
 
 
 app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
+    console.log('Lyrify listening on port 3000!');
 });
