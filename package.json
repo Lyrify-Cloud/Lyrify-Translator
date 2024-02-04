@@ -5,6 +5,20 @@
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "google-translate-api-x": "^10.6.8",
-    "jsonwebtoken": "^9.0.2"
-  }
+    "jsonwebtoken": "^9.0.2",
+    "langdetect": "^0.2.1"
+  },
+  "name": "lyrify",
+  "description": "聚合翻译",
+  "version": "1.0.0",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
