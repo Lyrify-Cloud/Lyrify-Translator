@@ -64,7 +64,6 @@ app.post('/language', async function (req, res) {
         var updatedLang = detectionMap[detectedLang] || detectedLang;
         res.json({ original: req.body.text, lang: updatedLang });
     } catch (error) {
-        console.error('Error detecting language:', error);
         res.json({ original: req.body.text });
     }
 });
