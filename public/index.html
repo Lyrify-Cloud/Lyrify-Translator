@@ -176,6 +176,11 @@
                 </div>
             </div>
             <div class="col-md-4">
+                <div id="Gemini" class="translation-box">
+                    <h5>Gemini</h5>
+                </div>
+            </div>
+            <div class="col-md-4">
                 <div id="DeepLX" class="translation-box">
                     <h5>DeepLX</h5>
                 </div>
@@ -230,6 +235,7 @@
                 .then(result => {
                     hideLoadingOverlay();
                     document.getElementById('ChatGPT').innerHTML = `<h5>ChatGPT</h5><p>${result.ChatGPT_translate}</p>`;
+                    document.getElementById('Gemini').innerHTML = `<h5>Gemini</h5><p>${result.Gemini_translate}</p>`;
                     document.getElementById('DeepLX').innerHTML = `<h5>DeepLX</h5><p>${result.DeepLX_translate}</p>`;
                     document.getElementById('Microsoft').innerHTML = `<h5>Microsoft</h5><p>${result.Microsoft_translate}</p>`;
                     document.getElementById('Google').innerHTML = `<h5>Google</h5><p>${result.Google_translate}</p>`;
