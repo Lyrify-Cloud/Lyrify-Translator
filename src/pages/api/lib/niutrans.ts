@@ -41,5 +41,5 @@ export class Niutrans {
 }
 
 export const NiutransInstance = new Niutrans(
-  process.env.niutrans_Key as string,
+  process.env.NIUTRANS_KEY as string,
 );

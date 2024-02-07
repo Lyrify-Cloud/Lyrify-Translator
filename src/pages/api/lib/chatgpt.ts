@@ -43,7 +43,7 @@ export class ChatGPT {
 }
 
 export const ChatGPTInstance = new ChatGPT(
-  process.env.GPT_Key as string,
-  process.env.GPT_API,
-  process.env.GPT_model,
+  process.env.OpenAI_API_KEY as string,
+  process.env.OpenAI_API_ENDPOINT,
+  process.env.OpenAI_MODEL,
 );
