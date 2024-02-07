@@ -11,11 +11,13 @@ type LanguageSelectProps = {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  acceptAuto?: boolean;
 };
 
 export default function ({
   placeholder,
   value,
+  acceptAuto,
   onChange,
 }: LanguageSelectProps) {
   return (
@@ -24,6 +26,7 @@ export default function ({
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
+        {acceptAuto && <SelectItem value={"auto"}>Auto Detect</SelectItem>}
         {languages.map((language, index) => (
           <SelectItem key={index} value={language.key}>
             {language.value}

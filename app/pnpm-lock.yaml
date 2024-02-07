@@ -17,9 +17,6 @@ dependencies:
   "@radix-ui/react-toast":
     specifier: ^1.1.5
     version: 1.1.5(@types/react-dom@18.2.18)(@types/react@18.2.54)(react-dom@18.2.0)(react@18.2.0)
-  "@types/jsonwebtoken":
-    specifier: ^9.0.5
-    version: 9.0.5
   axios:
     specifier: ^1.6.7
     version: 1.6.7
@@ -35,6 +32,9 @@ dependencies:
   jsonwebtoken:
     specifier: ^9.0.2
     version: 9.0.2
+  langdetect:
+    specifier: ^0.2.1
+    version: 0.2.1
   lucide-react:
     specifier: ^0.323.0
     version: 0.323.0(react@18.2.0)
@@ -58,6 +58,12 @@ dependencies:
     version: 1.0.7(tailwindcss@3.4.1)
 
 devDependencies:
+  "@types/jsonwebtoken":
+    specifier: ^9.0.5
+    version: 9.0.5
+  "@types/langdetect":
+    specifier: ^0.2.2
+    version: 0.2.2
   "@types/node":
     specifier: ^20
     version: 20.11.16
@@ -951,7 +957,14 @@ packages:
       }
     dependencies:
       "@types/node": 20.11.16
-    dev: false
+    dev: true
+
+  /@types/langdetect@0.2.2:
+    resolution:
+      {
+        integrity: sha512-wBYdB/PlRN7K30x37Pi/A7+KIFDNaqliz8IpUY0joG0Coyfszenspx0ID2s0KBAdNHXbd2WoMmpV5orFwGojUQ==,
+      }
+    dev: true
 
   /@types/node@20.11.16:
     resolution:
@@ -960,6 +973,7 @@ packages:
       }
     dependencies:
       undici-types: 5.26.5
+    dev: true
 
   /@types/prop-types@15.7.11:
     resolution:
@@ -1618,6 +1632,15 @@ packages:
     dependencies:
       jwa: 1.4.1
       safe-buffer: 5.2.1
+    dev: false
+
+  /langdetect@0.2.1:
+    resolution:
+      {
+        integrity: sha512-vWK2xz8Urp6J0RFwnrR8+d0DQ2yIGjCOqAxBoXNMVFv4ZDmFsbCcNEtwuVnaQ5+ltwZ4Z5rTtuTwHSaEWFdw+A==,
+      }
+    dependencies:
+      unicode-9.0.0: 0.7.0
     dev: false
 
   /lilconfig@2.1.0:
@@ -2437,6 +2460,15 @@ packages:
       {
         integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==,
       }
+    dev: true
+
+  /unicode-9.0.0@0.7.0:
+    resolution:
+      {
+        integrity: sha512-aqL0GQ3LB2nC3ZEKBZ93hfn7QY80sVGk+OT9Sc6lTxl4wRiwzUBRlAjJB9Fe4+5XydXOV+tb8udp5oRBoED5Tw==,
+      }
+    deprecated: Use @unicode/unicode-9.0.0 instead.
+    dev: false
 
   /update-browserslist-db@1.0.13(browserslist@4.22.3):
     resolution:

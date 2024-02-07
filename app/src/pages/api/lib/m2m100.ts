@@ -1,6 +1,8 @@
+// code from sipc
+
 import { getErrorMessage } from "@/pages/api/lib/utils";
 
-const axios = require("axios");
+import axios from "axios";
 
 export class M2m100 {
   public apiUrl: string;

@@ -26,7 +26,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const { toast } = useToast();
   const [content, setContent] = useState<string>("");
-  const [from, setFrom] = useState<string>("en");
+  const [from, setFrom] = useState<string>("auto");
   const [to, setTo] = useState<string>("zh");
 
   const [loader, setLoader] = useState<boolean>(false);
@@ -80,6 +80,7 @@ export default function Home() {
             <InputContent content={content} setContent={setContent} />
             <div className={`flex flex-row items-center`}>
               <LanguageSelect
+                acceptAuto={true}
                 value={from}
                 onChange={setFrom}
                 placeholder={`Source Language`}

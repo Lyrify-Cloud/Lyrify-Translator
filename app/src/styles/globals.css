@@ -86,9 +86,9 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 240 3.7% 15.9%;
-    --border-hover: 240 3.7% 20.9%;
-    --border-active: 240 3.7% 25.9%;
+    --border: 240 3.7% 20.9%;
+    --border-hover: 240 3.7% 25.9%;
+    --border-active: 240 3.7% 30.9%;
     --input: 240 3.7% 15.9%;
     --input-unread: 240 3.7% 50%;
     --text: 0 0% 100%;

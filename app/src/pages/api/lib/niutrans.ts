@@ -1,3 +1,5 @@
+// code from sipc
+
 import axios from "axios";
 import { getErrorMessage } from "@/pages/api/lib/utils";
 
@@ -29,7 +31,9 @@ export class Niutrans {
         to: targetLanguage,
       });
       const response = await axios.post(this.apiUrl, params, { headers });
-      return response.data.tgt_text as string;
+      const result = response.data.tgt_text;
+      if (!result) throw new Error("no response");
+      return result as string;
     } catch (error) {
       throw new Error(`Error while translating: ${getErrorMessage(error)}`);
     }
