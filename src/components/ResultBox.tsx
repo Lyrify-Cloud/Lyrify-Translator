@@ -28,7 +28,7 @@ export function ResultBox({ name, loading, content }: ResultBoxProps) {
   return (
     <Card>
       <CardTitle
-        className={`text-sm select-none translate-y-[-0.5rem] translate-x-[0.5rem]`}
+        className={`text-sm select-none translate-y-[-0.5rem] translate-x-[0.5rem] bg-background w-max px-1`}
       >
         {name}
       </CardTitle>
