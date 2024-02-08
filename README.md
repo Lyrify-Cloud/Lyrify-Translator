@@ -39,7 +39,7 @@ docker run -d --name lyrify \
   -e OpenAI_API_ENDPOINT='https://api.openai.com/v1/chat/completions' \
   -e OpenAI_MODEL='gpt-3.5-turbo' \
   -e NIUTRANS_KEY='...' \
-  DEEPL_X_API_URL='...' \
+  -e DEEPL_X_API_URL='...' \
   sipcink/lyrify:latest
 ```
 
