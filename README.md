@@ -13,7 +13,7 @@ Lyrify 是一个聚合翻译网站，旨在结合多种翻译服务，包括 Cha
 - 聚合多种翻译服务：使用 ChatGPT、DeeplX、Microsoft、Google、Niutrans 和 M2m100，从而获得更全面的翻译结果。
 - 简单易用：用户友好的界面，使用户能够轻松输入和获取翻译结果。
 - 多语言支持：覆盖多种语言，支持用户在不同语言之间进行翻译。
-- 轻量部署：基于 Nextjs 构建，支持 Vercel, Docker 等无服务器运行时的部署方式。
+- 轻量部署：基于 Nextjs 构建，支持 Docker 等部署方式。
 
 ### 运行
 
@@ -35,6 +35,19 @@ npm run dev --turbo #  start dev server
 npm run build # build project
 npm run start # start deploy server
 ```
+
+### Docker 部署
+
+```shell
+docker run -d --name lyrify \
+  -p 3000:3000 \
+  programzmh/lyrify:latest
+```
+
+> Github Workflow 自动打包
+> 
+> 在 Action Secret 中配置 `DOCKERHUB_USERNAME` `DOCKERHUB_TOKEN` 参数
+
 
 ### 贡献
 
