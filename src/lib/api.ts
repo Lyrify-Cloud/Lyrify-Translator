@@ -2,10 +2,10 @@ import axios from "axios";
 
 export type TranslateResult = {
   chatgpt: string;
+  gemini: string;
   deeplx: string;
   microsoft: string;
   google: string;
-  m2m100: string;
   niutrans: string;
 };
 

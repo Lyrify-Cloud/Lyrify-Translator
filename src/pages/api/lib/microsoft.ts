@@ -12,12 +12,14 @@ export class Microsoft {
 
   constructor() {
     this.API_AUTH = "https://edge.microsoft.com/translate/auth";
-    this.API_TRANSLATE =
-      "https://api.cognitive.microsofttranslator.com/translate";
+    this.API_TRANSLATE ="https://api.cognitive.microsofttranslator.com/translate";
     this.authToken = "";
   }
 
   async translate(text: string, targetLanguage: string, sourceLanguage = "en") {
+    if (sourceLanguage === "auto") {
+      sourceLanguage = "";
+    }
     try {
       // 检测 JWT 是否存在/过期
       if (

@@ -4,16 +4,16 @@ import { ChatGPT, ChatGPTInstance } from "./lib/chatgpt";
 import { DeepLX, DeeplXInstance } from "@/pages/api/lib/deeplx";
 import { Microsoft, MicrosoftInstance } from "@/pages/api/lib/microsoft";
 import { Google, GoogleInstance } from "@/pages/api/lib/google";
-import { M2m100, M2m100Instance } from "@/pages/api/lib/m2m100";
 import { Niutrans, NiutransInstance } from "@/pages/api/lib/niutrans";
 import { autodetect } from "@/pages/api/lib/autodetect";
+import { GeminiInstance } from "./lib/gemini";
 
 type TranslateResult = {
   chatgpt: string;
   deeplx: string;
   microsoft: string;
   google: string;
-  m2m100: string;
+  gemini: string;
   niutrans: string;
 };
 
@@ -47,9 +47,12 @@ export default async function handler(
       sourceLanguage = autodetect(text);
 
     // code from sipc
-    const [chatgpt, deeplx, microsoft, google, m2m100, niutrans] =
+    const [chatgpt, gemini, deeplx, microsoft, google, niutrans] =
       await Promise.all([
         ChatGPTInstance.translate(text, targetLanguage, sourceLanguage).catch(
+          (e) => e.message,
+        ),
+        GeminiInstance.translate(text, targetLanguage, sourceLanguage).catch(
           (e) => e.message,
         ),
         DeeplXInstance.translate(text, targetLanguage, sourceLanguage).catch(
@@ -59,9 +62,6 @@ export default async function handler(
           (e) => e.message,
         ),
         GoogleInstance.translate(text, targetLanguage, sourceLanguage).catch(
-          (e) => e.message,
-        ),
-        M2m100Instance.translate(text, targetLanguage, sourceLanguage).catch(
           (e) => e.message,
         ),
         NiutransInstance.translate(text, targetLanguage, sourceLanguage).catch(
@@ -74,11 +74,11 @@ export default async function handler(
       source: sourceLanguage,
       data: {
         chatgpt,
+        gemini,
         deeplx,
         microsoft,
         google,
-        m2m100,
-        niutrans,
+        niutrans
       },
     });
   } catch (e) {
