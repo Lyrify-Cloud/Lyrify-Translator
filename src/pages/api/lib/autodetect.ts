@@ -12,6 +12,6 @@ export function autodetect(content: string): string {
     const lang = detectOne(content);
     return detectionMap[lang] || lang;
   } catch {
-    return "";
+    return "auto";
   }
 }
