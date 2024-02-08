@@ -18,10 +18,10 @@ export type TranslateResponse = {
 
 export const initializeTranslateState: TranslateResult = {
   chatgpt: "",
+  gemini: "",
   deeplx: "",
   microsoft: "",
   google: "",
-  m2m100: "",
   niutrans: "",
 };
 
