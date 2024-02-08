@@ -24,12 +24,8 @@ type TranslateResponse = {
   data?: TranslateResult;
 };
 
-function errResp(
-  res: NextApiResponse<TranslateResponse>,
-  code: number,
-  message: string,
-) {
-  return res.status(code).json({
+function errResp(res: NextApiResponse<TranslateResponse>, message: string) {
+  return res.status(200).json({
     status: false,
     message,
   });
@@ -39,49 +35,53 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<TranslateResponse>,
 ) {
-  if (req.method !== "POST") return errResp(res, 400, "invalid http method");
+  if (req.method !== "POST") return errResp(res, "invalid http method");
 
   let { text, targetLanguage, sourceLanguage } = req.body;
 
   if (text.length === 0 || targetLanguage.length === 0)
-    return errResp(res, 400, "text or target language is empty");
+    return errResp(res, "text or target language is empty");
 
-  if (sourceLanguage.length === 0 || sourceLanguage === "auto")
-    sourceLanguage = autodetect(text);
+  try {
+    if (sourceLanguage.length === 0 || sourceLanguage === "auto")
+      sourceLanguage = autodetect(text);
 
-  // code from sipc
-  const [chatgpt, deeplx, microsoft, google, m2m100, niutrans] =
-    await Promise.all([
-      ChatGPTInstance.translate(text, targetLanguage, sourceLanguage).catch(
-        (e) => e.message,
-      ),
-      DeeplXInstance.translate(text, targetLanguage, sourceLanguage).catch(
-        (e) => e.message,
-      ),
-      MicrosoftInstance.translate(text, targetLanguage, sourceLanguage).catch(
-        (e) => e.message,
-      ),
-      GoogleInstance.translate(text, targetLanguage, sourceLanguage).catch(
-        (e) => e.message,
-      ),
-      M2m100Instance.translate(text, targetLanguage, sourceLanguage).catch(
-        (e) => e.message,
-      ),
-      NiutransInstance.translate(text, targetLanguage, sourceLanguage).catch(
-        (e) => e.message,
-      ),
-    ]);
+    // code from sipc
+    const [chatgpt, deeplx, microsoft, google, m2m100, niutrans] =
+      await Promise.all([
+        ChatGPTInstance.translate(text, targetLanguage, sourceLanguage).catch(
+          (e) => e.message,
+        ),
+        DeeplXInstance.translate(text, targetLanguage, sourceLanguage).catch(
+          (e) => e.message,
+        ),
+        MicrosoftInstance.translate(text, targetLanguage, sourceLanguage).catch(
+          (e) => e.message,
+        ),
+        GoogleInstance.translate(text, targetLanguage, sourceLanguage).catch(
+          (e) => e.message,
+        ),
+        M2m100Instance.translate(text, targetLanguage, sourceLanguage).catch(
+          (e) => e.message,
+        ),
+        NiutransInstance.translate(text, targetLanguage, sourceLanguage).catch(
+          (e) => e.message,
+        ),
+      ]);
 
-  res.status(200).json({
-    status: true,
-    source: sourceLanguage,
-    data: {
-      chatgpt,
-      deeplx,
-      microsoft,
-      google,
-      m2m100,
-      niutrans,
-    },
-  });
+    res.status(200).json({
+      status: true,
+      source: sourceLanguage,
+      data: {
+        chatgpt,
+        deeplx,
+        microsoft,
+        google,
+        m2m100,
+        niutrans,
+      },
+    });
+  } catch (e) {
+    return errResp(res, (e as Error).message);
+  }
 }
