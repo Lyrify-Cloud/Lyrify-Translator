@@ -2,12 +2,6 @@
 
 Lyrify 是一个聚合翻译网站，旨在结合多种翻译服务，包括 ChatGPT、DeeplX、Microsoft、Google、Niutrans 和 M2m100，提供全面的多语言翻译功能。
 
-<div align="center">
-
-![stats](https://stats.deeptrain.net/repo/sipc/lyrify/?theme=light)
-
-</div>
-
 ### 特性
 
 - 聚合多种翻译服务：使用 ChatGPT、DeeplX、Microsoft、Google、Niutrans 和 M2m100，从而获得更全面的翻译结果。
@@ -52,3 +46,6 @@ docker run -d --name lyrify \
 ### 贡献
 
 如果你发现了问题或有改进建议，请在 [Issues](https://github.com/SIPC/lyrify/issues) 中提出。我们欢迎并感谢你的贡献！
+
+
+![stats](https://stats.deeptrain.net/repo/sipc/lyrify/?theme=light)
