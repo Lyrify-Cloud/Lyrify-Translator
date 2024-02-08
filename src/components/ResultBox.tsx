@@ -82,17 +82,9 @@ export function ResultContainer({ loading, result }: ResultContainerProps) {
     <div className={`result-container grid-cols-3 grid gap-4`}>
       <ResultBox loading={loading} name="ChatGPT" content={result.chatgpt} />
       <ResultBox loading={loading} name="DeepL X" content={result.deeplx} />
-      <ResultBox
-        loading={loading}
-        name="Microsoft"
-        content={result.microsoft}
-      />
+      <ResultBox loading={loading} name="Microsoft" content={result.microsoft} />
       <ResultBox loading={loading} name="Google" content={result.google} />
-      <ResultBox
-        loading={loading}
-        name={"Niutrans"}
-        content={result.niutrans}
-      />
+      <ResultBox loading={loading} name="Niutrans" content={result.niutrans} />
       <ResultBox loading={loading} name="M2m100" content={result.m2m100} />
     </div>
   );
