@@ -11,6 +11,7 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
+        <div className="footer-script" dangerouslySetInnerHTML={{ __html: process.env.NEXT_PUBLIC_FOOTER || "" }}/>
       </body>
     </Html>
   );
