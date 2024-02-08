@@ -35,7 +35,12 @@ npm run start # start deploy server
 ```shell
 docker run -d --name lyrify \
   -p 3000:3000 \
-  programzmh/lyrify:latest
+  -e OpenAI_API_KEY='sk-...' \
+  -e OpenAI_API_ENDPOINT='https://api.openai.com/v1/chat/completions' \
+  -e OpenAI_MODEL='gpt-3.5-turbo' \
+  -e NIUTRANS_KEY='...' \
+  DEEPL_X_API_URL='...' \
+  sipcink/lyrify:latest
 ```
 
 > Github Workflow 自动打包
