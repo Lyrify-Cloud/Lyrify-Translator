@@ -1,5 +1,3 @@
-"use client";
-
 import { Textarea } from "@/components/ui/textarea";
 import { useMemo } from "react";
 

@@ -51,58 +51,65 @@ export default function Home() {
   };
 
   return (
-    <main className={cn(inter.className, "py-8 flex flex-col items-center")}>
+    <>
       <Toaster />
-      <div className={`main-wrapper w-[90vw] m-auto max-w-[780px]`}>
-        <Card className={`mb-6`}>
-          <CardHeader>
-            <CardTitle className={`flex flex-row items-center select-none`}>
-              <ScanSearch className={`w-6 h-6 mr-2`} />
-              Lyrify
-              <ThemeProvider />
-              <Button
-                className={`ml-2`}
-                variant={`ghost`}
-                size={`icon`}
-                asChild
-              >
-                <Link href={"https://github.com/SIPC/Lyrify"} target={`_blank`}>
-                  <Github className={`h-4 w-4`} />
-                </Link>
-              </Button>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className={`card-content`}>
-            <Label className={`card-label`}>
-              <Text className={`h-4 w-4`} />
-              Content
-            </Label>
-            <InputContent content={content} setContent={setContent} />
-            <div className={`flex flex-row items-center`}>
-              <LanguageSelect
-                acceptAuto={true}
-                value={from}
-                onChange={setFrom}
-                placeholder={`Source Language`}
-              />
-              <ChevronRight className={`shrink-0 w-3 h-3 mx-2`} />
-              <LanguageSelect
-                value={to}
-                onChange={setTo}
-                placeholder={`Target Language`}
-              />
-            </div>
-            <div className={`flex flex-row`}>
-              <div className={`flex-grow`} />
-              <Button className={`mt-2`} variant={`default`} onClick={submit}>
-                {loader && <Loader2 className={`h-4 w-4 mr-1 animate-spin`} />}
-                {loader ? "Translating" : "Translate"}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-        <ResultContainer loading={loader} result={result} />
-      </div>
-    </main>
+      <main className={cn(inter.className, "py-8 flex flex-col items-center")}>
+        <div className={`main-wrapper w-[90vw] m-auto max-w-[780px]`}>
+          <Card className={`mb-6`}>
+            <CardHeader>
+              <CardTitle className={`flex flex-row items-center select-none`}>
+                <ScanSearch className={`w-6 h-6 mr-2`} />
+                Lyrify
+                <ThemeProvider />
+                <Button
+                  className={`ml-2`}
+                  variant={`ghost`}
+                  size={`icon`}
+                  asChild
+                >
+                  <Link
+                    href={"https://github.com/SIPC/Lyrify"}
+                    target={`_blank`}
+                  >
+                    <Github className={`h-4 w-4`} />
+                  </Link>
+                </Button>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className={`card-content`}>
+              <Label className={`card-label`}>
+                <Text className={`h-4 w-4`} />
+                Content
+              </Label>
+              <InputContent content={content} setContent={setContent} />
+              <div className={`flex flex-row items-center`}>
+                <LanguageSelect
+                  acceptAuto={true}
+                  value={from}
+                  onChange={setFrom}
+                  placeholder={`Source Language`}
+                />
+                <ChevronRight className={`shrink-0 w-3 h-3 mx-2`} />
+                <LanguageSelect
+                  value={to}
+                  onChange={setTo}
+                  placeholder={`Target Language`}
+                />
+              </div>
+              <div className={`flex flex-row`}>
+                <div className={`flex-grow`} />
+                <Button className={`mt-2`} variant={`default`} onClick={submit}>
+                  {loader && (
+                    <Loader2 className={`h-4 w-4 mr-1 animate-spin`} />
+                  )}
+                  {loader ? "Translating" : "Translate"}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+          <ResultContainer loading={loader} result={result} />
+        </div>
+      </main>
+    </>
   );
 }

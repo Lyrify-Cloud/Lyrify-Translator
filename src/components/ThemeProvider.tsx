@@ -1,6 +1,4 @@
-"use client";
-
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
 
 import { Button } from "./ui/button";
