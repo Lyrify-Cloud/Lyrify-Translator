@@ -11,7 +11,7 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        <div className="footer-script" dangerouslySetInnerHTML={{ __html: process.env.NEXT_PUBLIC_FOOTER || "" }}/>
+        <script async src="https://statistics.sipc.ink/script.js" data-website-id="161ee1e0-2f5d-4490-92d5-54530221bb1a"></script>
       </body>
     </Html>
   );

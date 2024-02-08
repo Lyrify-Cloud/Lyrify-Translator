@@ -2,7 +2,7 @@ name: Docker
 
 on:
   push:
-    branches: [ main ]
+    branches: [ online ]
 
 jobs:
   build:
@@ -25,4 +25,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/lyrify:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/lyrify:online
