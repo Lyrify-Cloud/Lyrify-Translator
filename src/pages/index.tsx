@@ -108,6 +108,7 @@ export default function Home() {
             </CardContent>
           </Card>
           <ResultContainer loading={loader} result={result} />
+          <div className="footer" dangerouslySetInnerHTML={{ __html: process.env.FOOTER || "" }} />
         </div>
       </main>
     </>
