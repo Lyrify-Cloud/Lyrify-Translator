@@ -1,6 +1,6 @@
 // code from sipc
 
-import { detectOne } from "langdetect";
+const { detectOne } = require("langdetect");
 
 const detectionMap: Record<string, string> = {
   "zh-cn": "zh",
