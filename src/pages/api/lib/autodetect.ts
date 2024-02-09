@@ -16,14 +16,11 @@ export async function autodetect(content: string): Promise<string> {
   } catch (axiosError) {
     console.error("Axios Error:", axiosError);
     try {
-      return localDetect(content);
+      const detectedLang = detectOne(content);
+      return detectionMap[detectedLang] || detectedLang || "auto";
     } catch (langdetectError) {
       console.error("Langdetect Error:", langdetectError);
       return "auto";
     }
   }
-}
-function localDetect(content: string): string {
-  const detectedLang = detectOne(content);
-  return detectionMap[detectedLang] || detectedLang || "auto";
 }
