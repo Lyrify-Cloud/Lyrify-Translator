@@ -4,7 +4,7 @@ Lyrify 是一个聚合翻译网站，旨在结合多种翻译服务，包括 Cha
 
 ### 特性
 
-- 聚合多种翻译服务：使用 ChatGPT、DeeplX、Microsoft、Google、Niutrans 和 M2m100，从而获得更全面的翻译结果。
+- 聚合多种翻译服务：使用 ChatGPT、Gemini、DeeplX、Microsoft、Google、Niutrans 和 M2m100，从而获得更全面的翻译结果。
 - 简单易用：用户友好的界面，使用户能够轻松输入和获取翻译结果。
 - 多语言支持：覆盖多种语言，支持用户在不同语言之间进行翻译。
 - 轻量部署：基于 Nextjs 构建，支持 Docker 等部署方式。
