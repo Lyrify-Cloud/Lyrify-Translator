@@ -25,13 +25,26 @@ export class Gemini {
                     },
                 ],
             });
-            const response = await axios.post(`${this.apiUrl}/v1beta/models/gemini-pro:generateContent?key=${this.key}`, data, { headers },);
-            return response.data.candidates[0].content.parts[0].text;
+            const response = await axios.post(`${this.apiUrl}/v1beta/models/gemini-pro:generateContent?key=${this.key}`, data, { headers });
+            if (response.data.candidates && response.data.candidates[0].content) {
+                return response.data.candidates[0].content.parts[0].text;
+            } else if (response.data.promptFeedback && response.data.promptFeedback.blockReason) {
+                if ( response.data.promptFeedback.blockReason == 'SAFETY') {
+                    return 'Request intercepted.'
+                }
+            } else if (response.data.candidates && response.data.candidates[0].finishReason) {
+                if ( response.data.candidates[0].finishReason == 'SAFETY') {
+                    return 'Request intercepted.'
+                }
+            } else {
+                throw new Error("No translation result, no block reason, and no finish reason available");
+            }
         } catch (error) {
             console.log(JSON.stringify(error));
             throw new Error(`Error while translating: ${getErrorMessage(error)}`);
         }
     }
+
 }
 
 export const GeminiInstance = new Gemini(

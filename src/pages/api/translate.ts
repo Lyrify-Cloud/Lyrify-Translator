@@ -1,12 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { ChatGPT, ChatGPTInstance } from "./lib/chatgpt";
-import { DeepLX, DeeplXInstance } from "./lib/deeplx";
-import { Microsoft, MicrosoftInstance } from "./lib/microsoft";
-import { Google, GoogleInstance } from "./lib/google";
-import { Niutrans, NiutransInstance } from "./lib/niutrans";
-import { M2m100 , M2m100Instance } from "./lib/m2m100";
-import { Gemini ,GeminiInstance } from "./lib/gemini";
+import { ChatGPTInstance } from "./lib/chatgpt";
+import { DeeplXInstance } from "./lib/deeplx";
+import { MicrosoftInstance } from "./lib/microsoft";
+import { GoogleInstance } from "./lib/google";
+import { NiutransInstance } from "./lib/niutrans";
+import { M2m100Instance } from "./lib/m2m100";
+import { GeminiInstance } from "./lib/gemini";
 import { autodetect } from "./lib/autodetect";
 
 
@@ -48,7 +48,7 @@ export default async function handler(
   try {
     if (sourceLanguage.length === 0 || sourceLanguage === "auto")
       sourceLanguage = autodetect(text);
-    
+
     // code from sipc
     const [chatgpt, gemini, deeplx, microsoft, google, niutrans, m2m100] =
       await Promise.all([
