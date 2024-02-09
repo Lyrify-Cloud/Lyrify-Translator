@@ -1,12 +1,14 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ChatGPT, ChatGPTInstance } from "./lib/chatgpt";
-import { DeepLX, DeeplXInstance } from "@/pages/api/lib/deeplx";
-import { Microsoft, MicrosoftInstance } from "@/pages/api/lib/microsoft";
-import { Google, GoogleInstance } from "@/pages/api/lib/google";
-import { Niutrans, NiutransInstance } from "@/pages/api/lib/niutrans";
-import { autodetect } from "@/pages/api/lib/autodetect";
-import { GeminiInstance } from "./lib/gemini";
+import { DeepLX, DeeplXInstance } from "./lib/deeplx";
+import { Microsoft, MicrosoftInstance } from "./lib/microsoft";
+import { Google, GoogleInstance } from "./lib/google";
+import { Niutrans, NiutransInstance } from "./lib/niutrans";
+import { M2m100 , M2m100Instance } from "./lib/m2m100";
+import { Gemini ,GeminiInstance } from "./lib/gemini";
+import { autodetect } from "./lib/autodetect";
+
 
 type TranslateResult = {
   chatgpt: string;
@@ -15,6 +17,7 @@ type TranslateResult = {
   google: string;
   gemini: string;
   niutrans: string;
+  m2m100: string;
 };
 
 type TranslateResponse = {
@@ -45,9 +48,9 @@ export default async function handler(
   try {
     if (sourceLanguage.length === 0 || sourceLanguage === "auto")
       sourceLanguage = autodetect(text);
-
+    
     // code from sipc
-    const [chatgpt, gemini, deeplx, microsoft, google, niutrans] =
+    const [chatgpt, gemini, deeplx, microsoft, google, niutrans, m2m100] =
       await Promise.all([
         ChatGPTInstance.translate(text, targetLanguage, sourceLanguage).catch(
           (e) => e.message,
@@ -67,6 +70,9 @@ export default async function handler(
         NiutransInstance.translate(text, targetLanguage, sourceLanguage).catch(
           (e) => e.message,
         ),
+        M2m100Instance.translate(text, targetLanguage, sourceLanguage).catch(
+          (e) => e.message,
+        ),
       ]);
 
     res.status(200).json({
@@ -78,7 +84,8 @@ export default async function handler(
         deeplx,
         microsoft,
         google,
-        niutrans
+        niutrans,
+        m2m100
       },
     });
   } catch (e) {
