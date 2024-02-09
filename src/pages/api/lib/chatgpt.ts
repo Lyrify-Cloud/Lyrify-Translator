@@ -29,7 +29,7 @@ export class ChatGPT {
         messages: [
           {
             role: "user",
-            content: `将"${text}"从${source}翻译为${target}(!!!直接返回翻译内容不要打引号)`,
+            content: `请将以下文本从${source}翻译为${target}:“${text}”(要求：输出的结果只能出现翻译结果，需要准确且清晰，不得出现翻译结果以外的内容，输出结果不可以带任何特殊的文本样式,'',""不得出现)`,
           },
         ],
         temperature: 0.7,
