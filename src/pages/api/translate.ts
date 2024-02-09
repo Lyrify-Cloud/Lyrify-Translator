@@ -47,7 +47,7 @@ export default async function handler(
 
   try {
     if (sourceLanguage.length === 0 || sourceLanguage === "auto")
-      sourceLanguage = autodetect(text);
+      sourceLanguage = await autodetect(text);
 
     // code from sipc
     const [chatgpt, gemini, deeplx, microsoft, google, niutrans, m2m100] =
