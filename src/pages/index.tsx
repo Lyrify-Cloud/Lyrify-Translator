@@ -84,7 +84,7 @@ export default function Home() {
                     href={"https://github.com/SIPC/Lyrify"}
                     target={`_blank`}
                   >
-                    <Github className={`h-4 w-4`} />
+                    <Github className={`h-5 w-5`} />
                   </Link>
                 </Button>
               </CardTitle>
