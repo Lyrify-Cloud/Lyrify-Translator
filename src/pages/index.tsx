@@ -68,7 +68,7 @@ export default function Home() {
                   asChild
                 >
                   <Link
-                    href={"https://qm.qq.com/q/yQkWWooypG"}
+                    href={"https://qm.qq.com/q/VNaGrHJAMC"}
                     target={`_blank`}
                   >
                     <MessagesSquare className={`h-5 w-5`} />
