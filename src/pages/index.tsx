@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { ChevronRight, Loader2, ScanSearch, Text } from "lucide-react";
+import { ChevronRight, Loader2, ScanSearch, Text, MessagesSquare } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import InputContent from "@/components/InputContent";
@@ -61,6 +61,19 @@ export default function Home() {
                 <ScanSearch className={`w-6 h-6 mr-2`} />
                 Lyrify
                 <ThemeProvider />
+                <Button
+                  className={`ml-2`}
+                  variant={`ghost`}
+                  size={`icon`}
+                  asChild
+                >
+                  <Link
+                    href={"https://qm.qq.com/q/yQkWWooypG"}
+                    target={`_blank`}
+                  >
+                    <MessagesSquare className={`h-5 w-5`} />
+                  </Link>
+                </Button>
                 <Button
                   className={`ml-2`}
                   variant={`ghost`}
