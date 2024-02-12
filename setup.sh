@@ -91,7 +91,7 @@ EOL
     fi
 
     info "即将开始下载新版本 Docker 镜像"
-    docker pull sipcink/lyrify:latest
+    docker pull sipcink/lyrify:online
 
     info "即将开始替换 Docker 容器"
     docker stop lyrify > /dev/null 2>&1 && docker rm lyrify > /dev/null 2>&1
@@ -104,7 +104,7 @@ EOL
         -e Gemini_API_KEY="$gemini_api_key" \
         -e NIUTRANS_KEY="$niutrans_key" \
         -e DEEPL_X_API_URL="$deepl_x_api_url" \
-        sipcink/lyrify:latest
+        sipcink/lyrify:online
 
     if [ $? -ne "0" ]; then
         abort "替换 Docker 容器失败"
@@ -146,7 +146,7 @@ EOL
         -e Gemini_API_KEY="$gemini_api_key" \
         -e NIUTRANS_KEY="$niutrans_key" \
         -e DEEPL_X_API_URL="$deepl_x_api_url" \
-        sipcink/lyrify:latest
+        sipcink/lyrify:online
 
 	if [ $? -ne "0" ]; then
 		abort "启动 Docker 容器失败"
