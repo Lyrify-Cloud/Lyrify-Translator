@@ -1,6 +1,6 @@
-<h1 style="text-align: center;">Lyrify - 聚合翻译</h1>
+<h1 align="center">Lyrify - 聚合翻译</h1>
 
-Lyrify 是一个聚合翻译网站，旨在结合多种翻译服务，包括 ChatGPT、DeeplX、Microsoft、Google、Niutrans 和 M2m100，提供全面的多语言翻译功能。
+Lyrify 是一个聚合翻译网站，旨在结合多种翻译服务，提供全面的多语言翻译功能
 
 ### 特性
 
@@ -28,6 +28,11 @@ npm run dev --turbo #  start dev server
 ```shell
 npm run build # build project
 npm run start # start deploy server
+```
+
+### 一键部署 [Alpha]
+```shell
+bash -c "$(curl -fsSLk https://raw.githubusercontent.com/SIPC/Lyrify/main/setup.sh)"
 ```
 
 ### Docker 部署
