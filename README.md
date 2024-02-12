@@ -1,4 +1,4 @@
-# Lyrify
+<h1 style="text-align: center;">Lyrify - 聚合翻译</h1>
 
 Lyrify 是一个聚合翻译网站，旨在结合多种翻译服务，包括 ChatGPT、DeeplX、Microsoft、Google、Niutrans 和 M2m100，提供全面的多语言翻译功能。
 
@@ -53,4 +53,13 @@ docker run -d --name lyrify \
 如果你发现了问题或有改进建议，请在 [Issues](https://github.com/SIPC/lyrify/issues) 中提出。我们欢迎并感谢你的贡献！
 
 
-![stats](https://stats.deeptrain.net/repo/sipc/lyrify/?theme=light)
+## Star History
+
+<a href="https://star-history.com/#SIPC/Lyrify&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=SIPC/Lyrify&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=SIPC/Lyrify&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=SIPC/Lyrify&type=Date" />
+  </picture>
+</a>
+
