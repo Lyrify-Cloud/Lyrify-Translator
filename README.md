@@ -30,7 +30,7 @@ npm run build # build project
 npm run start # start deploy server
 ```
 
-### 一键部署 [Alpha]
+### 一键部署/更新 [Alpha]
 ```shell
 bash -c "$(curl -fsSLk https://raw.githubusercontent.com/SIPC/Lyrify/main/setup.sh)"
 ```
