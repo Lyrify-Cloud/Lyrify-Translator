@@ -25,6 +25,8 @@ export function ResultBox({ name, loading, content }: ResultBoxProps) {
     task.current = setTimeout(() => setCopied(false), 250);
   }, [copied]);
 
+  const formattedContent = content.replace(/\n/g, '<br>');
+
   return (
     <Card>
       <CardTitle
@@ -41,7 +43,7 @@ export function ResultBox({ name, loading, content }: ResultBoxProps) {
           </div>
         ) : (
           <div>
-            <p className={`break-all`}>{content}</p>
+            <p className={`break-all`} dangerouslySetInnerHTML={{ __html: formattedContent }} />
           </div>
         )}
 

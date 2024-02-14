@@ -24,7 +24,8 @@ export class Transmart {
       });
 
       if (response.data && response.data.auto_translation && response.data.auto_translation.length) {
-        return response.data.auto_translation[0].split('\n')[0]
+        return response.data.auto_translation[0]
+        
       } else {
         const errMsg = response.data ? JSON.stringify(response.data) : 'Unknown error';
         throw new Error(`Translation API Error: ${errMsg}`);
