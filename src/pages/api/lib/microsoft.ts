@@ -4,8 +4,6 @@ import axios from "axios";
 import { getErrorMessage } from "@/pages/api/lib/utils";
 import { decode } from "jsonwebtoken";
 
-let targetLanguageForZH: string;
-
 export class Microsoft {
   public API_AUTH: string;
   public API_TRANSLATE: string;
@@ -31,16 +29,8 @@ export class Microsoft {
         this.authToken = authResponse.data;
       }
 
-      //为简繁体中文翻译提供特殊支持
-      
-      if (targetLanguage === 'zh-cn') {
-        targetLanguageForZH = 'zh-Hans';
-      } else if (targetLanguage === 'zh-tw') {
-        targetLanguageForZH = 'zh-Hant';
-      }
-
       //请求 Microsoft translator API
-      const apiUrl = `${this.API_TRANSLATE}?from=${sourceLanguage}&to=${targetLanguageForZH}&api-version=3.0&includeSentenceLength=true`;
+      const apiUrl = `${this.API_TRANSLATE}?from=${sourceLanguage}&to=${targetLanguage}&api-version=3.0&includeSentenceLength=true`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${this.authToken}`,
