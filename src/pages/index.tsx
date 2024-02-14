@@ -10,7 +10,6 @@ import Github from "@/components/icons/Github";
 import Link from "next/link";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageSelect from "@/components/LanguageSelect";
-import { Head } from "next/document";
 import {
   initializeTranslateState,
   translateContent,
