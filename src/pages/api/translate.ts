@@ -7,6 +7,7 @@ import { GoogleInstance } from "./lib/google";
 import { NiutransInstance } from "./lib/niutrans";
 import { M2m100Instance } from "./lib/m2m100";
 import { GeminiInstance } from "./lib/gemini";
+import { TransmartInstance } from "./lib/transmart";
 import { autodetect } from "./lib/autodetect";
 
 
@@ -17,6 +18,7 @@ type TranslateResult = {
   google: string;
   gemini: string;
   niutrans: string;
+  transmart: string;
   m2m100: string;
 };
 
@@ -50,7 +52,7 @@ export default async function handler(
       sourceLanguage = await autodetect(text);
     
     // code from sipc
-    const [chatgpt, gemini, deeplx, microsoft, google, niutrans, m2m100] =
+    const [chatgpt, gemini, deeplx, microsoft, google, niutrans, transmart, m2m100] =
       await Promise.all([
         ChatGPTInstance.translate(text, targetLanguage, sourceLanguage).catch(
           (e) => e.message,
@@ -70,6 +72,9 @@ export default async function handler(
         NiutransInstance.translate(text, targetLanguage, sourceLanguage).catch(
           (e) => e.message,
         ),
+        TransmartInstance.translate(text, targetLanguage, sourceLanguage).catch(
+          (e) => e.message,
+        ),
         M2m100Instance.translate(text, targetLanguage, sourceLanguage).catch(
           (e) => e.message,
         ),
@@ -85,7 +90,8 @@ export default async function handler(
         microsoft,
         google,
         niutrans,
-        m2m100
+        transmart,
+        m2m100,
       },
     });
   } catch (e) {

@@ -10,7 +10,6 @@ import Github from "@/components/icons/Github";
 import Link from "next/link";
 import ThemeProvider from "@/components/ThemeProvider";
 import LanguageSelect from "@/components/LanguageSelect";
-import { Head } from "next/document";
 import {
   initializeTranslateState,
   translateContent,
@@ -71,7 +70,7 @@ export default function Home() {
                     href={"https://github.com/SIPC/Lyrify"}
                     target={`_blank`}
                   >
-                    <Github className={`h-4 w-4`} />
+                    <Github className={`h-5 w-5`} />
                   </Link>
                 </Button>
               </CardTitle>
