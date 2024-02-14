@@ -8,7 +8,8 @@ export type Language = {
 };
 
 export const languages: Language[] = [
-  { key: "zh", value: "Chinese" },
+  { key: "zh-cn", value: "Simplified Chinese" },
+  { key: "zh-tw", value: "Traditional Chinese" },
   { key: "en", value: "English" },
   { key: "bg", value: "Bulgarian" },
   { key: "cs", value: "Czech" },

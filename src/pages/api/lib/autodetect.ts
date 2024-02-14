@@ -2,11 +2,6 @@
 import axios from "axios";
 const { detectOne } = require("langdetect");
 
-const detectionMap: Record<string, string> = {
-  "zh-cn": "zh",
-  "zh-tw": "zh",
-};
-
 export async function autodetect(content: string): Promise<string> {
   try {
     let data = JSON.stringify({"text": content})

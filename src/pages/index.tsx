@@ -26,7 +26,7 @@ export default function Home() {
   const { toast } = useToast();
   const [content, setContent] = useState<string>("");
   const [from, setFrom] = useState<string>("auto");
-  const [to, setTo] = useState<string>("zh");
+  const [to, setTo] = useState<string>("zh-cn");
 
   const [loader, setLoader] = useState<boolean>(false);
   const [result, setResult] = useState<TranslateResult>(
