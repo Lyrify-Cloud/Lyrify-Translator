@@ -1,6 +1,6 @@
 // code from sipc
 
-const puppeterr = require('puppeteer')
+import puppeterr from "puppeteer";
 import { getErrorMessage } from "@/pages/api/lib/utils";
 
 export class Sougou {
