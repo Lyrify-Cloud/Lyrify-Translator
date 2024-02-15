@@ -30,5 +30,5 @@ export class DeepLX {
 }
 
 export const DeeplXInstance = new DeepLX(
-  process.env.DEEPL_X_API_URL || "https://api.sipc.ink/translate",
+  process.env.DEEPL_X_API_URL!,
 );
