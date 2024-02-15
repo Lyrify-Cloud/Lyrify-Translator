@@ -78,7 +78,6 @@ if docker ps -a -q --filter "name=lyrify" | grep -q .; then
 		read -p "Gemini API Key: " gemini_api_key
 		read -p "NIUTRANS Key: " niutrans_key
 		read -p "DEEPL_X API URL: " deepl_x_api_url
-		read -p "sougou_cookie: " sougou_cookie
 
 		cat <<EOL >/tmp/.Lyrify/config.txt
 openai_api_endpoint=${openai_api_endpoint:-https://api.openai.com/v1/chat/completions}
@@ -88,7 +87,6 @@ gemini_api_endpoint=${gemini_api_endpoint:-https://generativelanguage.googleapis
 gemini_api_key=$gemini_api_key
 niutrans_key=$niutrans_key
 deepl_x_api_url=$deepl_x_api_url
-sougou_cookie=$sougou_cookie
 EOL
 	fi
 
@@ -106,7 +104,6 @@ EOL
 	-e Gemini_API_KEY="$gemini_api_key" \
 	-e NIUTRANS_KEY="$niutrans_key" \
 	-e DEEPL_X_API_URL="$deepl_x_api_url" \
-	-e SOUGOU_Cookie="$sougou_cookie" \
 	sipcink/lyrify:latest
 
 	if [ $? -ne 0 ]; then
@@ -139,7 +136,6 @@ else
 	read -p "Gemini API Key: " gemini_api_key
 	read -p "NIUTRANS Key: " niutrans_key
 	read -p "DEEPL_X API URL: " deepl_x_api_url
-	read -p "sougou_cookie: " sougou_cookie
 
 	cat <<EOL >config.txt
 openai_api_endpoint=${openai_api_endpoint:-https://api.openai.com/v1/chat/completions}
@@ -149,7 +145,6 @@ gemini_api_endpoint=${gemini_api_endpoint:-https://generativelanguage.googleapis
 gemini_api_key=$gemini_api_key
 niutrans_key=$niutrans_key
 deepl_x_api_url=$deepl_x_api_url
-sougou_cookie=$sougou_cookie
 EOL
 
 	docker run -d --name lyrify \
@@ -161,7 +156,6 @@ EOL
 	-e Gemini_API_KEY="$gemini_api_key" \
 	-e NIUTRANS_KEY="$niutrans_key" \
 	-e DEEPL_X_API_URL="$deepl_x_api_url" \
-	-e SOUGOU_Cookie="$sougou_cookie" \
 	sipcink/lyrify:latest
 
 	if [ $? -ne "0" ]; then
