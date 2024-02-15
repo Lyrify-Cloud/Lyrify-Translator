@@ -4,8 +4,6 @@ import { ChatGPTInstance } from "./lib/chatgpt";
 import { DeeplXInstance } from "./lib/deeplx";
 import { MicrosoftInstance } from "./lib/microsoft";
 import { GoogleInstance } from "./lib/google";
-import { NiutransInstance } from "./lib/niutrans";
-import { M2m100Instance } from "./lib/m2m100";
 import { GeminiInstance } from "./lib/gemini";
 import { TransmartInstance } from "./lib/transmart";
 import { autodetect } from "./lib/autodetect";
@@ -17,9 +15,7 @@ type TranslateResult = {
   microsoft: string;
   google: string;
   gemini: string;
-  niutrans: string;
   transmart: string;
-  m2m100: string;
 };
 
 type TranslateResponse = {
@@ -53,21 +49,19 @@ export default async function handler(
 
     // code from sipc
     if (text.length < 5000) {
-      const [chatgpt, gemini, deeplx, microsoft, google, niutrans, transmart, m2m100] =
+      const [chatgpt, gemini, deeplx, microsoft, google, transmart] =
         await Promise.all([
           ChatGPTInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
           GeminiInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
           DeeplXInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
           MicrosoftInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
           GoogleInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
-          NiutransInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
           TransmartInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
-          M2m100Instance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
         ]);
       res.status(200).json({
         status: true,
         source: sourceLanguage,
-        data: { chatgpt, gemini, deeplx, microsoft, google, niutrans, transmart, m2m100},
+        data: { chatgpt, gemini, deeplx, microsoft, google, transmart},
       });
     } else {
       const [chatgpt, gemini, microsoft] =
@@ -79,7 +73,7 @@ export default async function handler(
     res.status(200).json({
       status: true,
       source: sourceLanguage,
-      data: { chatgpt, gemini, deeplx:'Extra-long', microsoft, google:'Extra-long', niutrans:'Extra-long', transmart:'Extra-long', m2m100:'Extra-long'},
+      data: { chatgpt, gemini, deeplx:'Extra-long', microsoft, google:'Extra-long', transmart:'Extra-long'},
     });
     }
   } catch (e) {
