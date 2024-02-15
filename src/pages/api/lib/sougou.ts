@@ -1,41 +1,25 @@
 // code from sipc
 
-const md5 = require('md5');
-import axios from "axios";
+const puppeterr = require('puppeteer')
 import { getErrorMessage } from "@/pages/api/lib/utils";
 
 export class Sougou {
-    public Cookie: string;
-    constructor(Cookie:string) {
-        this.Cookie = Cookie;
-    }
+    constructor() {}
 
     async translate(text: string, targetLanguage: string, sourceLanguage = "auto") {
         try {
-            const Headers = {
-                'Host': 'fanyi.sogou.com',
-                'Origin': 'https://fanyi.sogou.com',
-                'Referer': 'https://fanyi.sogou.com/text',
-                'Content-Type': 'application/json;charset=UTF-8',
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0',
-                'Cookie': this.Cookie
-            }
-            const { data } = await axios.post("https://fanyi.sogou.com/api/transpc/text/result",
-                {
-                    'from': sourceLanguage,
-                    'to': targetLanguage,
-                    'text': text,
-                    's': md5(sourceLanguage+targetLanguage+text+'109984457'),
-                }, { headers: Headers });
-            return data.data.translate.dit;
-
+            const browser = await puppeterr.launch();
+            const page = await browser.newPage();
+            await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
+            await page.goto(`https://fanyi.sogou.com/text?keyword=${text}&transfrom=auto&transto=${targetLanguage}&model=general`);
+            const translatedText = await page.$eval('#trans-result', (element: { textContent: any; }) => element.textContent);
+            browser.close();
+            return translatedText.trim();
         } catch (error) {
             throw new Error(`Error while translating: ${getErrorMessage(error)}`);
         }
     }
 }
 
-export const SougouInstance = new Sougou(
-    process.env.SOUGOU_Cookie as string,
-);
+export const SougouInstance = new Sougou();
 
