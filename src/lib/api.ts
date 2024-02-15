@@ -6,6 +6,7 @@ export type TranslateResult = {
   deeplx: string;
   microsoft: string;
   google: string;
+  sougou: string;
   niutrans: string;
   transmart: string;
   m2m100: string;
@@ -24,6 +25,7 @@ export const initializeTranslateState: TranslateResult = {
   deeplx: "",
   microsoft: "",
   google: "",
+  sougou: "",
   niutrans: "",
   transmart: "",
   m2m100: "",

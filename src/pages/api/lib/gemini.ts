@@ -49,6 +49,6 @@ export class Gemini {
 
 export const GeminiInstance = new Gemini(
     process.env.Gemini_API_KEY as string,
-    process.env.Gemini_API_ENDPOINT,
+    process.env.Gemini_API_ENDPOINT as string
 );
 
