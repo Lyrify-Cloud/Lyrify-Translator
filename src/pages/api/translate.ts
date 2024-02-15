@@ -8,6 +8,7 @@ import { NiutransInstance } from "./lib/niutrans";
 import { M2m100Instance } from "./lib/m2m100";
 import { GeminiInstance } from "./lib/gemini";
 import { TransmartInstance } from "./lib/transmart";
+import { SougouInstance } from "./lib/sougou";
 import { autodetect } from "./lib/autodetect";
 
 
@@ -17,6 +18,7 @@ type TranslateResult = {
   microsoft: string;
   google: string;
   gemini: string;
+  sougou: string;
   niutrans: string;
   transmart: string;
   m2m100: string;
@@ -51,49 +53,39 @@ export default async function handler(
     if (sourceLanguage.length === 0 || sourceLanguage === "auto")
       sourceLanguage = await autodetect(text);
 
-    // code from sipc
-    const [chatgpt, gemini, deeplx, microsoft, google, niutrans, transmart, m2m100] =
-      await Promise.all([
-        ChatGPTInstance.translate(text, targetLanguage, sourceLanguage).catch(
-          (e) => e.message,
-        ),
-        GeminiInstance.translate(text, targetLanguage, sourceLanguage).catch(
-          (e) => e.message,
-        ),
-        DeeplXInstance.translate(text, targetLanguage, sourceLanguage).catch(
-          (e) => e.message,
-        ),
-        MicrosoftInstance.translate(text, targetLanguage, sourceLanguage).catch(
-          (e) => e.message,
-        ),
-        GoogleInstance.translate(text, targetLanguage, sourceLanguage).catch(
-          (e) => e.message,
-        ),
-        NiutransInstance.translate(text, targetLanguage, sourceLanguage).catch(
-          (e) => e.message,
-        ),
-        TransmartInstance.translate(text, targetLanguage, sourceLanguage).catch(
-          (e) => e.message,
-        ),
-        M2m100Instance.translate(text, targetLanguage, sourceLanguage).catch(
-          (e) => e.message,
-        ),
-      ]);
 
+    // code from sipc
+    if (text.length < 5000) {
+      const [chatgpt, gemini, deeplx, microsoft, google, niutrans, transmart, m2m100, sougou] =
+        await Promise.all([
+          ChatGPTInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
+          GeminiInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
+          DeeplXInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
+          MicrosoftInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
+          GoogleInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
+          NiutransInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
+          TransmartInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
+          M2m100Instance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
+          SougouInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
+        ]);
+      res.status(200).json({
+        status: true,
+        source: sourceLanguage,
+        data: { chatgpt, gemini, deeplx, microsoft, google, niutrans, transmart, m2m100, sougou},
+      });
+    } else {
+      const [chatgpt, gemini, microsoft] =
+      await Promise.all([
+        ChatGPTInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
+        GeminiInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
+        MicrosoftInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
+      ]);
     res.status(200).json({
       status: true,
       source: sourceLanguage,
-      data: {
-        chatgpt,
-        gemini,
-        deeplx,
-        microsoft,
-        google,
-        niutrans,
-        transmart,
-        m2m100,
-      },
+      data: { chatgpt, gemini, deeplx:'Extra-long', microsoft, google:'Extra-long', niutrans:'Extra-long', transmart:'Extra-long', m2m100:'Extra-long', sougou:'Extra-long'},
     });
+    }
   } catch (e) {
     return errResp(res, (e as Error).message);
   }

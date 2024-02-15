@@ -67,19 +67,20 @@ info "Docker 工作状态正常"
 
 if docker ps -a -q --filter "name=lyrify" | grep -q .; then
 	# 升级
-    if [ -f "/tmp/.Lyrify/config.txt" ]; then
-        source "/tmp/.Lyrify/config.txt"
-    else
-        echo "config.txt 未找到，请重新输入以下信息以配置 Lyrify:"
-        read -p "OpenAI API Endpoint (Press Enter to use default)" openai_api_endpoint
-        read -p "OpenAI API Key: " openai_api_key
-        read -p "OpenAI Model: " openai_model
-        read -p "Gemini API Endpoint (Press Enter to use default): " gemini_api_endpoint
-        read -p "Gemini API Key: " gemini_api_key
-        read -p "NIUTRANS Key: " niutrans_key
-        read -p "DEEPL_X API URL: " deepl_x_api_url
+	if [ -f "/tmp/.Lyrify/config.txt" ]; then
+		source "/tmp/.Lyrify/config.txt"
+	else
+		echo "config.txt 未找到，请重新输入以下信息以配置 Lyrify:"
+		read -p "OpenAI API Endpoint (Press Enter to use default)" openai_api_endpoint
+		read -p "OpenAI API Key: " openai_api_key
+		read -p "OpenAI Model: " openai_model
+		read -p "Gemini API Endpoint (Press Enter to use default): " gemini_api_endpoint
+		read -p "Gemini API Key: " gemini_api_key
+		read -p "NIUTRANS Key: " niutrans_key
+		read -p "DEEPL_X API URL: " deepl_x_api_url
+		read -p "sougou_cookie: " sougou_cookie
 
-        cat <<EOL > /tmp/.Lyrify/config.txt
+		cat <<EOL >/tmp/.Lyrify/config.txt
 openai_api_endpoint=${openai_api_endpoint:-https://api.openai.com/v1/chat/completions}
 openai_api_key=$openai_api_key
 openai_model=$openai_model
@@ -87,29 +88,41 @@ gemini_api_endpoint=${gemini_api_endpoint:-https://generativelanguage.googleapis
 gemini_api_key=$gemini_api_key
 niutrans_key=$niutrans_key
 deepl_x_api_url=$deepl_x_api_url
+sougou_cookie=$sougou_cookie
 EOL
-    fi
+	fi
 
-    info "即将开始下载新版本 Docker 镜像"
-    docker pull sipcink/lyrify:online
+	info "即将开始下载新版本 Docker 镜像"
+	docker pull sipcink/lyrify:online
 
-    info "即将开始替换 Docker 容器"
-    docker stop lyrify > /dev/null 2>&1 && docker rm lyrify > /dev/null 2>&1
-    docker run -d --name lyrify \
-        -p 3000:3000 \
-        -e OpenAI_API_ENDPOINT="$openai_api_endpoint" \
-        -e OpenAI_API_KEY="$openai_api_key" \
-        -e OpenAI_MODEL="$openai_model" \
-        -e Gemini_API_ENDPOINT="$gemini_api_endpoint" \
-        -e Gemini_API_KEY="$gemini_api_key" \
-        -e NIUTRANS_KEY="$niutrans_key" \
-        -e DEEPL_X_API_URL="$deepl_x_api_url" \
-        sipcink/lyrify:online
+	info "即将开始替换 Docker 容器"
+	docker stop lyrify >/dev/null 2>&1 && docker rm lyrify >/dev/null 2>&1
+	docker run -d --name lyrify \
+	-p 3000:3000 \
+	-e OpenAI_API_ENDPOINT="$openai_api_endpoint" \
+	-e OpenAI_API_KEY="$openai_api_key" \
+	-e OpenAI_MODEL="$openai_model" \
+	-e Gemini_API_ENDPOINT="$gemini_api_endpoint" \
+	-e Gemini_API_KEY="$gemini_api_key" \
+	-e NIUTRANS_KEY="$niutrans_key" \
+	-e DEEPL_X_API_URL="$deepl_x_api_url" \
+	-e SOUGOU_Cookie="$sougou_cookie" \
+	sipcink/lyrify:online
 
-    if [ $? -ne "0" ]; then
-        abort "替换 Docker 容器失败"
-    fi
-    info "升级成功"
+	if [ $? -ne 0 ]; then
+		abort "替换 Docker 容器失败"
+	else
+		info "替换 Docker 容器成功"
+		# 检查并删除旧镜像
+		docker rmi $(docker images | grep "lyrify" | grep "none" | awk '{print $3}')
+		if [ $? -ne 0 ]; then
+			warn "删除旧镜像失败"
+		else
+			info "删除旧镜像成功"
+		fi
+	fi
+	info "升级成功"
+
 else
 	# 安装
 	mkdir -p "/tmp/.Lyrify" || {
@@ -122,10 +135,11 @@ else
 	read -p "OpenAI API Endpoint (Press Enter to use default): " openai_api_endpoint
 	read -p "OpenAI API Key: " openai_api_key
 	read -p "OpenAI Model: " openai_model
-    read -p "Gemini API Endpoint (Press Enter to use default): " gemini_api_endpoint
-    read -p "Gemini API Key: " gemini_api_key
+	read -p "Gemini API Endpoint (Press Enter to use default): " gemini_api_endpoint
+	read -p "Gemini API Key: " gemini_api_key
 	read -p "NIUTRANS Key: " niutrans_key
 	read -p "DEEPL_X API URL: " deepl_x_api_url
+	read -p "sougou_cookie: " sougou_cookie
 
 	cat <<EOL >config.txt
 openai_api_endpoint=${openai_api_endpoint:-https://api.openai.com/v1/chat/completions}
@@ -135,18 +149,20 @@ gemini_api_endpoint=${gemini_api_endpoint:-https://generativelanguage.googleapis
 gemini_api_key=$gemini_api_key
 niutrans_key=$niutrans_key
 deepl_x_api_url=$deepl_x_api_url
+sougou_cookie=$sougou_cookie
 EOL
 
-    docker run -d --name lyrify \
-        -p 3000:3000 \
-        -e OpenAI_API_ENDPOINT="$openai_api_endpoint" \
-        -e OpenAI_API_KEY="$openai_api_key" \
-        -e OpenAI_MODEL="$openai_model" \
-        -e Gemini_API_ENDPOINT="$gemini_api_endpoint" \
-        -e Gemini_API_KEY="$gemini_api_key" \
-        -e NIUTRANS_KEY="$niutrans_key" \
-        -e DEEPL_X_API_URL="$deepl_x_api_url" \
-        sipcink/lyrify:online
+	docker run -d --name lyrify \
+	-p 3000:3000 \
+	-e OpenAI_API_ENDPOINT="$openai_api_endpoint" \
+	-e OpenAI_API_KEY="$openai_api_key" \
+	-e OpenAI_MODEL="$openai_model" \
+	-e Gemini_API_ENDPOINT="$gemini_api_endpoint" \
+	-e Gemini_API_KEY="$gemini_api_key" \
+	-e NIUTRANS_KEY="$niutrans_key" \
+	-e DEEPL_X_API_URL="$deepl_x_api_url" \
+	-e SOUGOU_Cookie="$sougou_cookie" \
+	sipcink/lyrify:online
 
 	if [ $? -ne "0" ]; then
 		abort "启动 Docker 容器失败"
