@@ -32,7 +32,7 @@ export class ChatGPT {
             content: `请将以下文本从${source}翻译为${target}:“${text}”(要求：输出的结果只能出现翻译结果，需要准确且清晰，不得出现翻译结果以外的内容，输出结果不可以带任何特殊的文本样式,'',""不得出现)`,
           },
         ],
-        temperature: 0.7,
+        temperature: 0.4,
       });
       const response = await axios.post(this.apiUrl, data, { headers });
       return response.data.choices[0].message.content;
@@ -43,7 +43,7 @@ export class ChatGPT {
 }
 
 export const ChatGPTInstance = new ChatGPT(
-  process.env.OpenAI_API_KEY as string,
-  process.env.OpenAI_API_ENDPOINT as string,
-  process.env.OpenAI_MODEL as string,
+  process.env.OpenAI_API_KEY!,
+  process.env.OpenAI_API_ENDPOINT!,
+  process.env.OpenAI_MODEL!,
 );

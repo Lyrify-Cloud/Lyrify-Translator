@@ -4,7 +4,11 @@ import { getErrorMessage } from "@/pages/api/lib/utils";
 export class Gemini {
     public key: string;
     public apiUrl: string;
-    constructor(key: string, apiUrl = "https://generativelanguage.googleapis.com") {
+
+    constructor(
+        key: string,
+        apiUrl = "https://generativelanguage.googleapis.com"
+    ) {
         this.key = key;
         this.apiUrl = apiUrl;
     }
@@ -14,6 +18,7 @@ export class Gemini {
             const headers = {
                 "Content-Type": "application/json",
             };
+
             const data = JSON.stringify({
                 contents: [
                     {
@@ -25,20 +30,23 @@ export class Gemini {
                     },
                 ],
             });
+            
             const response = await axios.post(`${this.apiUrl}/v1beta/models/gemini-pro:generateContent?key=${this.key}`, data, { headers });
+
             if (response.data.candidates && response.data.candidates[0].content) {
                 return response.data.candidates[0].content.parts[0].text;
             } else if (response.data.promptFeedback && response.data.promptFeedback.blockReason) {
-                if ( response.data.promptFeedback.blockReason == 'SAFETY') {
+                if (response.data.promptFeedback.blockReason == 'SAFETY') {
                     return 'Request intercepted.'
                 }
             } else if (response.data.candidates && response.data.candidates[0].finishReason) {
-                if ( response.data.candidates[0].finishReason == 'SAFETY') {
+                if (response.data.candidates[0].finishReason == 'SAFETY') {
                     return 'Request intercepted.'
                 }
             } else {
                 throw new Error("No translation result, no block reason, and no finish reason available");
             }
+
         } catch (error) {
             console.log(JSON.stringify(error));
             throw new Error(`Error while translating: ${getErrorMessage(error)}`);
@@ -48,7 +56,7 @@ export class Gemini {
 }
 
 export const GeminiInstance = new Gemini(
-    process.env.Gemini_API_KEY as string,
-    process.env.Gemini_API_ENDPOINT as string
+    process.env.Gemini_API_KEY!,
+    process.env.Gemini_API_ENDPOINT!
 );
 

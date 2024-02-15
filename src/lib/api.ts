@@ -7,9 +7,7 @@ export type TranslateResult = {
   microsoft: string;
   google: string;
   sougou: string;
-  niutrans: string;
   transmart: string;
-  m2m100: string;
 };
 
 export type TranslateResponse = {
@@ -26,9 +24,7 @@ export const initializeTranslateState: TranslateResult = {
   microsoft: "",
   google: "",
   sougou: "",
-  niutrans: "",
   transmart: "",
-  m2m100: "",
 };
 
 export async function translateContent(
