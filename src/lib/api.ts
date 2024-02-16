@@ -6,8 +6,8 @@ export type TranslateResult = {
   deeplx: string;
   microsoft: string;
   google: string;
-  sougou: string;
   transmart: string;
+  niutrans: string;
 };
 
 export type TranslateResponse = {
@@ -23,8 +23,8 @@ export const initializeTranslateState: TranslateResult = {
   deeplx: "",
   microsoft: "",
   google: "",
-  sougou: "",
   transmart: "",
+  niutrans: "",
 };
 
 export async function translateContent(

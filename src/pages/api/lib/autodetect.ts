@@ -18,8 +18,11 @@ export async function autodetect(content: string): Promise<string> {
     }
   } else {
     try {
-      let data = JSON.stringify({ "text": content })
-      const langResponse = await axios.post(`https://api.translatedlabs.com/language-identifier/identify`, data);
+      let data = JSON.stringify({ text: content });
+      const langResponse = await axios.post(
+        `https://api.translatedlabs.com/language-identifier/identify`,
+        data,
+      );
       const detectedLang = langResponse.data.code.substring(0, 2).toLowerCase();
       return detectedLang;
     } catch (axiosError) {

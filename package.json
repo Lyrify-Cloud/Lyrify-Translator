@@ -14,6 +14,7 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
+    "autosize": "^6.0.1",
     "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
@@ -32,6 +33,7 @@
     "unicode-9.0.0": "0.7.0"
   },
   "devDependencies": {
+    "@types/autosize": "^4.0.3",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/langdetect": "^0.2.2",
     "@types/node": "^20",

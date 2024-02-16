@@ -88,6 +88,7 @@ export function ResultContainer({ loading, result }: ResultContainerProps) {
       <ResultBox loading={loading} name="Microsoft" content={result.microsoft} />
       <ResultBox loading={loading} name="Google" content={result.google} />
       <ResultBox loading={loading} name="Transmart" content={result.transmart} />
+      <ResultBox loading={loading} name="Niutrans" content={result.niutrans} />
     </div>
   );
 }

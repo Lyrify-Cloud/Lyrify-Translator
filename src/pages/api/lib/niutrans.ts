@@ -33,13 +33,11 @@ export class Niutrans {
       const response = await axios.post(this.apiUrl, params, { headers });
       const result = response.data.tgt_text;
       if (!result) throw new Error("no response");
-      return result as string;
+      return result!;
     } catch (error) {
       throw new Error(`Error while translating: ${getErrorMessage(error)}`);
     }
   }
 }
 
-export const NiutransInstance = new Niutrans(
-  process.env.NIUTRANS_KEY as string,
-);
+export const NiutransInstance = new Niutrans(process.env.NIUTRANS_KEY!);

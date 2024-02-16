@@ -29,6 +29,4 @@ export class DeepLX {
   }
 }
 
-export const DeeplXInstance = new DeepLX(
-  process.env.DEEPL_X_API_URL!,
-);
+export const DeeplXInstance = new DeepLX(process.env.DEEPL_X_API_URL!);
