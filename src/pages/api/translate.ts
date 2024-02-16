@@ -6,16 +6,18 @@ import { MicrosoftInstance } from "./lib/microsoft";
 import { GoogleInstance } from "./lib/google";
 import { GeminiInstance } from "./lib/gemini";
 import { TransmartInstance } from "./lib/transmart";
+import { NiutransInstance } from "./lib/niutrans";
 import { autodetect } from "./lib/autodetect";
 
 
 type TranslateResult = {
   chatgpt: string;
+  gemini: string;
   deeplx: string;
   microsoft: string;
   google: string;
-  gemini: string;
   transmart: string;
+  niutrans: string;
 };
 
 type TranslateResponse = {
@@ -49,7 +51,7 @@ export default async function handler(
 
     // code from sipc
     if (text.length < 5000) {
-      const [chatgpt, gemini, deeplx, microsoft, google, transmart] =
+      const [chatgpt, gemini, deeplx, microsoft, google, transmart, niutrans] =
         await Promise.all([
           ChatGPTInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
           GeminiInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
@@ -57,11 +59,12 @@ export default async function handler(
           MicrosoftInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
           GoogleInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
           TransmartInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
+          NiutransInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
         ]);
       res.status(200).json({
         status: true,
         source: sourceLanguage,
-        data: { chatgpt, gemini, deeplx, microsoft, google, transmart},
+        data: { chatgpt, gemini, deeplx, microsoft, google, transmart, niutrans},
       });
     } else {
       const [chatgpt, gemini, microsoft] =
@@ -73,7 +76,7 @@ export default async function handler(
     res.status(200).json({
       status: true,
       source: sourceLanguage,
-      data: { chatgpt, gemini, deeplx:'Extra-long', microsoft, google:'Extra-long', transmart:'Extra-long'},
+      data: { chatgpt, gemini, deeplx:'Extra-long', microsoft, google:'Extra-long', transmart:'Extra-long', niutrans:'Extra-long'},
     });
     }
   } catch (e) {

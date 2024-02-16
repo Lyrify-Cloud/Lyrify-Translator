@@ -53,7 +53,7 @@ export default function Home() {
     <>
       <Toaster />
       <main className={cn(inter.className, "py-8 flex flex-col items-center")}>
-        <div className={`main-wrapper w-[95vw] m-auto max-w-[950px]`}>
+        <div className={`main-wrapper w-[90vw] max-w-[55vw]`}>
           <Card className={`mb-6`}>
             <CardHeader>
               <CardTitle className={`flex flex-row items-center select-none`}>
