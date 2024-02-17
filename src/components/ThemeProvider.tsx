@@ -6,10 +6,6 @@ import { getMemory, setMemory } from "@/lib/utils";
 
 type Theme = "dark" | "light" | "system";
 
-type ThemeProviderProps = {
-  defaultTheme?: Theme;
-};
-
 type ThemeProviderState = {
   theme: Theme;
   setTheme: (theme: Theme) => void;
@@ -58,7 +54,7 @@ export const useTheme = () => {
   return context;
 };
 
-export function ThemeProvider() {
+export function LayoutProvider() {
   const toggleTheme = useTheme().toggleTheme;
 
   useEffect(initTheme, []);
@@ -80,4 +76,4 @@ export function ThemeProvider() {
   );
 }
 
-export default ThemeProvider;
+export default LayoutProvider;

@@ -1,7 +1,14 @@
 import { Inter } from "next/font/google";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { ChevronRight, Loader2, ScanSearch, Text } from "lucide-react";
+import {
+  ChevronRight,
+  Loader2,
+  ScanSearch,
+  Text,
+  ChevronsLeftRight,
+  ChevronsRightLeft,
+} from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import InputContent from "@/components/InputContent";
@@ -13,7 +20,6 @@ import LanguageSelect from "@/components/LanguageSelect";
 import {
   initializeTranslateState,
   translateContent,
-  TranslateResponse,
   TranslateResult,
 } from "@/lib/api";
 import { useToast } from "@/components/ui/use-toast";
@@ -28,10 +34,15 @@ export default function Home() {
   const [from, setFrom] = useState<string>("auto");
   const [to, setTo] = useState<string>("zh");
 
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
   const [result, setResult] = useState<TranslateResult>(
     initializeTranslateState,
   );
+
+  const handleClick = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   const submit = async () => {
     const text = content.trim();
@@ -53,13 +64,27 @@ export default function Home() {
     <>
       <Toaster />
       <main className={cn(inter.className, "py-8 flex flex-col items-center")}>
-        <div className={`main-wrapper w-[90vw] max-w-[55vw]`}>
+        <div
+          className={`main-wrapper w-[96vw] ${isExpanded ? "max-w-[96vw]" : "max-w-[55vw]"}`}
+        >
           <Card className={`mb-6`}>
             <CardHeader>
               <CardTitle className={`flex flex-row items-center select-none`}>
                 <ScanSearch className={`w-6 h-6 mr-2`} />
                 Lyrify
                 <ThemeProvider />
+                <Button
+                  className={`ml-2`}
+                  variant={`ghost`}
+                  size={`icon`}
+                  onClick={handleClick}
+                >
+                  {isExpanded ? (
+                    <ChevronsRightLeft className={`h-6 w-6`} />
+                  ) : (
+                    <ChevronsLeftRight className={`h-6 w-6`} />
+                  )}
+                </Button>
                 <Button
                   className={`ml-2`}
                   variant={`ghost`}
@@ -106,7 +131,11 @@ export default function Home() {
               </div>
             </CardContent>
           </Card>
-          <ResultContainer loading={loader} result={result} />
+          <ResultContainer
+            loading={loader}
+            result={result}
+            isExpanded={isExpanded}
+          />
         </div>
       </main>
     </>

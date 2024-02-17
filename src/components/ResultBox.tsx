@@ -77,11 +77,12 @@ export function ResultBox({ name, loading, content }: ResultBoxProps) {
 export type ResultContainerProps = {
   loading: boolean;
   result: TranslateResult;
+  isExpanded: boolean;
 };
 
-export function ResultContainer({ loading, result }: ResultContainerProps) {
+export function ResultContainer({ loading, result, isExpanded}: ResultContainerProps) {
   return (
-    <div className={`result-container grid-cols-3 grid gap-4`}>
+    <div className={`result-container ${isExpanded ? 'grid-cols-4' : 'grid-cols-3'} grid gap-4`}>
       <ResultBox loading={loading} name="ChatGPT" content={result.chatgpt} />
       <ResultBox loading={loading} name="Gemini" content={result.gemini} />
       <ResultBox loading={loading} name="DeepLX" content={result.deeplx} />
