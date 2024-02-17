@@ -43,7 +43,7 @@ export function ResultBox({ name, loading, content }: ResultBoxProps) {
           </div>
         ) : (
           <div>
-            <p className={`break-all`} dangerouslySetInnerHTML={{ __html: formattedContent }} />
+            <p className={`keep-all`} dangerouslySetInnerHTML={{ __html: formattedContent }} />
           </div>
         )}
 
