@@ -83,7 +83,7 @@ export type ResultContainerProps = {
 
 export function ResultContainer({ loading, result, isExpanded}: ResultContainerProps) {
   useEffect(() => {
-      const container = document.querySelector('.result-container');
+      const container = document.querySelector('.result-container') as HTMLElement;
       if (container) {
           Sortable.create(container, {
               animation: 150,
