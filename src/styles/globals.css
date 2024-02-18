@@ -191,6 +191,10 @@ main {
   overflow-y: auto;
 }
 
+.sortable-ghost {
+  border: 1px dashed #ccc;
+}
+
 @media (max-width: 680px) {
   .result-container {
   }
