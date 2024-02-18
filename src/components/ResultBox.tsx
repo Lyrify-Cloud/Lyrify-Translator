@@ -4,6 +4,7 @@ import { TranslateResult } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { copyClipboard } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
+import Sortable from 'sortablejs'; 
 
 export type ResultBoxProps = {
   name: string;
@@ -81,15 +82,35 @@ export type ResultContainerProps = {
 };
 
 export function ResultContainer({ loading, result, isExpanded}: ResultContainerProps) {
-  return (
-    <div className={`result-container ${isExpanded ? 'grid-cols-4' : 'grid-cols-3'} grid gap-4`}>
-      <ResultBox loading={loading} name="ChatGPT" content={result.chatgpt} />
-      <ResultBox loading={loading} name="Gemini" content={result.gemini} />
-      <ResultBox loading={loading} name="DeepLX" content={result.deeplx} />
-      <ResultBox loading={loading} name="Microsoft" content={result.microsoft} />
-      <ResultBox loading={loading} name="Google" content={result.google} />
-      <ResultBox loading={loading} name="Transmart" content={result.transmart} />
-      <ResultBox loading={loading} name="Niutrans" content={result.niutrans} />
-    </div>
+  useEffect(() => {
+      const container = document.querySelector('.result-container');
+      if (container) {
+          Sortable.create(container, {
+              animation: 150,
+              ghostClass: 'sortable-ghost',
+              store: {
+                  get: () => {
+                      const storedOrder = localStorage.getItem('resultBoxOrder');
+                      return storedOrder ? JSON.parse(storedOrder) : [];
+                  },
+                  set: (sortable:any) => {
+                      const order = sortable.toArray();
+                      localStorage.setItem('resultBoxOrder', JSON.stringify(order));
+                  },
+              },
+          });
+      }
+  }, [isExpanded]); 
+
+  return ( 
+       <div className={`result-container ${isExpanded ? 'grid-cols-4' : 'grid-cols-3'} grid gap-4`}>
+          <ResultBox data-name="ChatGPT" loading={loading} name="ChatGPT" content={result.chatgpt} />
+          <ResultBox data-name="Gemini" loading={loading} name="Gemini" content={result.gemini} />
+          <ResultBox data-name="DeepLX" loading={loading} name="DeepLX" content={result.deeplx} />
+          <ResultBox data-name="Microsoft" loading={loading} name="Microsoft" content={result.microsoft} />
+          <ResultBox data-name="Google" loading={loading} name="Google" content={result.google} />
+          <ResultBox data-name="Transmart" loading={loading} name="Transmart" content={result.transmart} />
+          <ResultBox data-name="Niutrans" loading={loading} name="Niutrans" content={result.niutrans} />
+       </div>
   );
 }
