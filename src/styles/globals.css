@@ -195,6 +195,10 @@ main {
   border: 1px dashed #ccc;
 }
 
+.result-container p {
+  text-align: justify;
+}
+
 @media (max-width: 680px) {
   .result-container {
   }
