@@ -9,22 +9,12 @@ import { TransmartInstance } from "./lib/transmart";
 import { NiutransInstance } from "./lib/niutrans";
 import { autodetect } from "./lib/autodetect";
 
-
-type TranslateResult = {
-  chatgpt: string;
-  gemini: string;
-  deeplx: string;
-  microsoft: string;
-  google: string;
-  transmart: string;
-  niutrans: string;
-};
-
 type TranslateResponse = {
   status: boolean;
   message?: string;
   source?: string;
-  data?: TranslateResult;
+  data?: any;
+  model?: string;
 };
 
 function errResp(res: NextApiResponse<TranslateResponse>, message: string) {
@@ -40,7 +30,7 @@ export default async function handler(
 ) {
   if (req.method !== "POST") return errResp(res, "invalid http method");
 
-  let { text, targetLanguage, sourceLanguage } = req.body;
+  let { model, text, targetLanguage, sourceLanguage } = req.body;
 
   if (text.length === 0 || targetLanguage.length === 0)
     return errResp(res, "text or target language is empty");
@@ -50,35 +40,60 @@ export default async function handler(
       sourceLanguage = await autodetect(text);
 
     // code from sipc
-    if (text.length < 5000) {
-      const [chatgpt, gemini, deeplx, microsoft, google, transmart, niutrans] =
-        await Promise.all([
-          ChatGPTInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
-          GeminiInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
-          DeeplXInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
-          MicrosoftInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
-          GoogleInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
-          TransmartInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
-          NiutransInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
-        ]);
-      res.status(200).json({
-        status: true,
-        source: sourceLanguage,
-        data: { chatgpt, gemini, deeplx, microsoft, google, transmart, niutrans},
-      });
-    } else {
-      const [chatgpt, gemini, microsoft] =
-      await Promise.all([
-        ChatGPTInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
-        GeminiInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
-        MicrosoftInstance.translate(text, targetLanguage, sourceLanguage).catch((e) => e.message,),
-      ]);
+    const response = async (model: string) => {
+      switch (model) {
+        case "chatgpt":
+          return await ChatGPTInstance.translate(
+            text,
+            targetLanguage,
+            sourceLanguage,
+          ).catch((e) => e.message);
+        case "gemini":
+          return await GeminiInstance.translate(
+            text,
+            targetLanguage,
+            sourceLanguage,
+          ).catch((e) => e.message);
+        case "deeplx":
+          return await DeeplXInstance.translate(
+            text,
+            targetLanguage,
+            sourceLanguage,
+          ).catch((e) => e.message);
+        case "microsoft":
+          return await MicrosoftInstance.translate(
+            text,
+            targetLanguage,
+            sourceLanguage,
+          ).catch((e) => e.message);
+        case "google":
+          return await GoogleInstance.translate(
+            text,
+            targetLanguage,
+            sourceLanguage,
+          ).catch((e) => e.message);
+        case "transmart":
+          return await TransmartInstance.translate(
+            text,
+            targetLanguage,
+            sourceLanguage,
+          ).catch((e) => e.message);
+        case "niutrans":
+          return await NiutransInstance.translate(
+            text,
+            targetLanguage,
+            sourceLanguage,
+          ).catch((e) => e.message);
+        default:
+          throw new Error("invalid model");
+      }
+    };
     res.status(200).json({
       status: true,
+      model: model,
       source: sourceLanguage,
-      data: { chatgpt, gemini, deeplx:'Extra-long', microsoft, google:'Extra-long', transmart:'Extra-long', niutrans:'Extra-long'},
+      data: await response(model),
     });
-    }
   } catch (e) {
     return errResp(res, (e as Error).message);
   }

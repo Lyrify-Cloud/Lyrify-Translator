@@ -19,12 +19,14 @@ import ThemeProvider from "@/components/ThemeProvider";
 import LanguageSelect from "@/components/LanguageSelect";
 import {
   initializeTranslateState,
+  initializeTranslateloader,
   translateContent,
   TranslateResult,
+  Translateloader,
 } from "@/lib/api";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
-import { ResultContainer } from "@/components/ResultBox";
+import { ResultContainer, getResult } from "@/components/ResultBox";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,7 +37,9 @@ export default function Home() {
   const [to, setTo] = useState<string>("zh");
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const [loader, setLoader] = useState<boolean>(false);
+  const [loader, setLoader] = useState<Translateloader>(
+    initializeTranslateloader,
+  );
   const [result, setResult] = useState<TranslateResult>(
     initializeTranslateState,
   );
@@ -44,20 +48,59 @@ export default function Home() {
     setIsExpanded(!isExpanded);
   };
 
+  const setAllLoader = (value: boolean) => {
+    setLoader((loader) => {
+      const newLoader: any = { ...loader };
+      Object.keys(newLoader).forEach((key) => {
+        newLoader[key] = value;
+      });
+      return newLoader;
+    });
+  };
+
+  const setResultState = (model: string, value: string) => {
+    setLoader((loader) => {
+      const newLoader: any = { ...loader };
+      newLoader[model] = false;
+      return newLoader;
+    });
+    setResult((loader) => {
+      const newLoader: any = { ...loader };
+      newLoader[model] = value;
+      return newLoader;
+    });
+  };
+
   const submit = async () => {
     const text = content.trim();
+    let completedPromises = 0;
     if (content.length === 0) return;
-    setLoader(true);
-    const data = await translateContent(text, from, to);
-    if (!data.status) {
-      toast({
-        title: "Translate Error",
-        description: data.message,
-      });
-    } else {
-      setResult(data.data);
-    }
-    setLoader(false);
+    setAllLoader(true);
+
+    const models = getResult();
+    const promises = models.map((model) =>
+      translateContent(text, from, to, model),
+    );
+    promises.forEach(async (promise, index) => {
+      try {
+        const result = await promise;
+        const model = models[index];
+        const value = result.data;
+        if (!result.status) {
+          toast({
+            title: "Translate Error",
+            description: result.message,
+          });
+        } else {
+          setResultState(model, value);
+        }
+      } finally {
+        completedPromises++;
+        if (completedPromises === promises.length) {
+          setAllLoader(false);
+        }
+      }
+    });
   };
 
   return (
@@ -122,11 +165,16 @@ export default function Home() {
               </div>
               <div className={`flex flex-row`}>
                 <div className={`flex-grow`} />
-                <Button className={`mt-2`} variant={`default`} onClick={submit}>
-                  {loader && (
+                <Button
+                  className={`mt-2`}
+                  variant={`default`}
+                  disabled={loader.translate}
+                  onClick={submit}
+                >
+                  {loader.translate && (
                     <Loader2 className={`h-4 w-4 mr-1 animate-spin`} />
                   )}
-                  {loader ? "Translating" : "Translate"}
+                  {loader.translate ? "Translating" : "Translate"}
                 </Button>
               </div>
             </CardContent>
