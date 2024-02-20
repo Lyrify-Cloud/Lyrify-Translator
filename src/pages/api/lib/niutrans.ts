@@ -17,8 +17,8 @@ export class Niutrans {
 
   async translate(
     text: string,
-    targetLanguage: string,
-    sourceLanguage = "auto",
+    target: string,
+    source = "auto",
   ) {
     try {
       const headers = {
@@ -27,8 +27,8 @@ export class Niutrans {
       const params = JSON.stringify({
         apikey: this.key,
         src_text: text,
-        from: sourceLanguage,
-        to: targetLanguage,
+        from: source,
+        to: target,
       });
       const response = await axios.post(this.apiUrl, params, { headers });
       const result = response.data.tgt_text;

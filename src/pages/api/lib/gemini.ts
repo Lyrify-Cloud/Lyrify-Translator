@@ -14,8 +14,8 @@ export class Gemini {
 
   async translate(
     text: string,
-    targetLanguage: string,
-    sourceLanguage: string = "auto",
+    target: string,
+    source: string = "auto",
   ) {
     try {
       const headers = {
@@ -26,7 +26,7 @@ export class Gemini {
           {
             parts: [
               {
-                text: `请将以下文本从${sourceLanguage}翻译为${targetLanguage}:“${text}”(要求：输出的结果只能出现翻译结果，需要准确且清晰，不得出现翻译结果以外的内容，输出结果不可以带任何特殊的文本样式,'',""不得出现)`,
+                text: `请将以下文本从${source}翻译为${target}:“${text}”(要求：输出的结果只能出现翻译结果，需要准确且清晰，不得出现翻译结果以外的内容，输出结果不可以带任何特殊的文本样式,'',""不得出现)`,
               },
             ],
           },

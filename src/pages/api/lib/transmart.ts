@@ -8,12 +8,12 @@ export class Transmart {
 
   async translate(
     text: string,
-    targetLanguage: string,
-    sourceLanguage: string = "en",
+    target: string,
+    source: string = "en",
   ) {
     try {
-      const source_lang = sourceLanguage;
-      const target_lang = targetLanguage;
+      const source_lang = source;
+      const target_lang = target;
 
       const post_data = this.initData(source_lang, target_lang, text);
       const post_str = JSON.stringify(post_data);
