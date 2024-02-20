@@ -10,11 +10,22 @@ export type TranslateResult = {
   niutrans: string;
 };
 
+export type Translateloader = {
+  translate: boolean,
+  chatgpt: boolean;
+  gemini: boolean;
+  deeplx: boolean;
+  microsoft: boolean;
+  google: boolean;
+  transmart: boolean;
+  niutrans: boolean;
+};
+
 export type TranslateResponse = {
   status: boolean;
   message: string;
   source: string;
-  data: TranslateResult;
+  data: string;
 };
 
 export const initializeTranslateState: TranslateResult = {
@@ -27,10 +38,22 @@ export const initializeTranslateState: TranslateResult = {
   niutrans: "",
 };
 
+export const initializeTranslateloader: Translateloader = {
+  translate: false,
+  chatgpt: false,
+  gemini: false,
+  deeplx: false,
+  microsoft: false,
+  google: false,
+  transmart: false,
+  niutrans: false,
+};
+
 export async function translateContent(
   content: string,
   from: string,
   to: string,
+  model: string,
 ): Promise<TranslateResponse> {
   try {
     return (
@@ -38,6 +61,7 @@ export async function translateContent(
         text: content,
         sourceLanguage: from,
         targetLanguage: to,
+        model
       })
     ).data;
   } catch (e) {
@@ -45,7 +69,7 @@ export async function translateContent(
       status: false,
       message: (e as Error).message || "unknown error",
       source: "",
-      data: { ...initializeTranslateState },
+      data: 'null',
     };
   }
 }

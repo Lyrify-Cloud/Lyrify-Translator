@@ -1,6 +1,6 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Check, Copy, Loader2 } from "lucide-react";
-import { TranslateResult } from "@/lib/api";
+import { TranslateResult, Translateloader } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { copyClipboard } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
@@ -76,7 +76,7 @@ export function ResultBox({ name, loading, content }: ResultBoxProps) {
 }
 
 export type ResultContainerProps = {
-  loading: boolean;
+  loading: Translateloader;
   result: TranslateResult;
   isExpanded: boolean;
 };
@@ -104,13 +104,14 @@ export function ResultContainer({ loading, result, isExpanded}: ResultContainerP
 
   return ( 
        <div className={`result-container ${isExpanded ? 'grid-cols-4' : 'grid-cols-3'} grid gap-4`}>
-          <ResultBox data-name="ChatGPT" loading={loading} name="ChatGPT" content={result.chatgpt} />
-          <ResultBox data-name="Gemini" loading={loading} name="Gemini" content={result.gemini} />
-          <ResultBox data-name="DeepLX" loading={loading} name="DeepLX" content={result.deeplx} />
-          <ResultBox data-name="Microsoft" loading={loading} name="Microsoft" content={result.microsoft} />
-          <ResultBox data-name="Google" loading={loading} name="Google" content={result.google} />
-          <ResultBox data-name="Transmart" loading={loading} name="Transmart" content={result.transmart} />
-          <ResultBox data-name="Niutrans" loading={loading} name="Niutrans" content={result.niutrans} />
+          <ResultBox data-name="ChatGPT" loading={loading.chatgpt} name="ChatGPT" content={result.chatgpt} />
+          <ResultBox data-name="Gemini" loading={loading.gemini} name="Gemini" content={result.gemini} />
+          <ResultBox data-name="DeepLX" loading={loading.deeplx} name="DeepLX" content={result.deeplx} />
+          <ResultBox data-name="Microsoft" loading={loading.microsoft} name="Microsoft" content={result.microsoft} />
+          <ResultBox data-name="Google" loading={loading.google} name="Google" content={result.google} />
+          <ResultBox data-name="Transmart" loading={loading.transmart} name="Transmart" content={result.transmart} />
+          <ResultBox data-name="Niutrans" loading={loading.niutrans} name="Niutrans" content={result.niutrans} />
        </div>
   );
 }
+export function getResult() {return ['chatgpt', 'gemini', 'deeplx', 'microsoft', 'google', 'transmart', 'niutrans']}
