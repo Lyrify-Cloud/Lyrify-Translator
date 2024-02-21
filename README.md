@@ -57,6 +57,9 @@ docker run -d --name lyrify \
 
 如果你发现了问题或有改进建议，请在 [Issues](https://github.com/SIPC/lyrify/issues) 中提出。我们欢迎并感谢你的贡献！
 
+### 交流
+
+Q群 618385100
 
 ## Star History
 
