@@ -184,6 +184,7 @@ export default function Home() {
                   variant={`default`}
                   disabled={loader.translate}
                   onClick={submit}
+                  data-umami-event={`${from}>${to}`}
                 >
                   {loader.translate && (
                     <Loader2 className={`h-4 w-4 mr-1 animate-spin`} />

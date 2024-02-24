@@ -109,7 +109,7 @@ EOL
 	-e NIUTRANS_KEY="$niutrans_key" \
 	-e DEEPL_X_API_URL="$deepl_x_api_url" \
 	-e BAIDU_APP_ID="$baidu_app_id" \
-	-e BAIDU_KEY="$baidu_key"
+	-e BAIDU_KEY="$baidu_key" \
 	sipcink/lyrify:online
 
 	if [ $? -ne 0 ]; then
@@ -167,7 +167,7 @@ EOL
 	-e NIUTRANS_KEY="$niutrans_key" \
 	-e DEEPL_X_API_URL="$deepl_x_api_url" \
 	-e BAIDU_APP_ID="$baidu_app_id" \
-	-e BAIDU_KEY="$baidu_key"
+	-e BAIDU_KEY="$baidu_key" \
 	sipcink/lyrify:online
 
 	if [ $? -ne "0" ]; then
