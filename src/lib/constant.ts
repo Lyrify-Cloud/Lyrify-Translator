@@ -16,5 +16,6 @@ export const languages: Language[] = [
   { key: "de", value: "Deutsch" },
   { key: "it", value: "Italian" },
   { key: "es", value: "Spanish" },
+  { key: "ko", value: "Korean" },
   { key: "pt", value: "Portuguese" },
 ];

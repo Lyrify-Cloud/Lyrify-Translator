@@ -166,7 +166,15 @@ export default function Home() {
                   onChange={setFrom}
                   placeholder={`Source Language`}
                 />
-                <ChevronRight className={`shrink-0 w-3 h-3 mx-2`} />
+                <ChevronRight className={`shrink-0 w-3 h-3 mx-2`}
+                  onClick={() => {
+                    const temp = from;
+                    if (temp != 'auto') {
+                      setFrom(to);
+                      setTo(temp);
+                    }
+                  }}
+                />
                 <LanguageSelect
                   value={to}
                   onChange={setTo}

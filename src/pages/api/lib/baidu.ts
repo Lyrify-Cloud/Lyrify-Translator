@@ -8,6 +8,7 @@ const languageMap: Record<string, string> = {
   "ja": "jp",
   "fr": "fra",
   "es": "spa",
+  "ko": "kor",
 };
 
 export class Baidu {
@@ -24,10 +25,10 @@ export class Baidu {
     const salt = String(Math.random()).slice(2)
     const sign = MD5(this.APPID+text+salt+this.APPKEY)
     try {
-      const apiUrl =`http://api.fanyi.baidu.com/api/trans/vip/translate?q=${text}&from=${source}&to=${target}&appid=${this.APPID}&salt=${salt}&sign=${sign}`;
+      const apiUrl =`http://api.fanyi.baidu.com/api/trans/vip/translate?q=${encodeURIComponent(text)}&from=${source}&to=${target}&appid=${this.APPID}&salt=${salt}&sign=${sign}`;
       const response = await axios.get(apiUrl);
       if (response.data) {
-        return response.data.trans_result[0].dst;
+        return response.data.trans_result.map((item: { dst: any; }) => item.dst).join("\n\n");
       } else {
         throw new Error("Invalid response from Baidu");
       }
