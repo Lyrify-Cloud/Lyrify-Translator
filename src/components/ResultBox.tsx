@@ -106,12 +106,13 @@ export function ResultContainer({ loading, result, isExpanded}: ResultContainerP
        <div className={`result-container ${isExpanded ? 'grid-cols-4' : 'grid-cols-3'} grid gap-4`}>
           <ResultBox data-name="ChatGPT" loading={loading.chatgpt} name="ChatGPT" content={result.chatgpt} />
           <ResultBox data-name="Gemini" loading={loading.gemini} name="Gemini" content={result.gemini} />
-          <ResultBox data-name="DeepLX" loading={loading.deeplx} name="DeepLX" content={result.deeplx} />
+          <ResultBox data-name="DeepLX" loading={loading.deeplx} name="DeepL X" content={result.deeplx} />
           <ResultBox data-name="Microsoft" loading={loading.microsoft} name="Microsoft" content={result.microsoft} />
           <ResultBox data-name="Google" loading={loading.google} name="Google" content={result.google} />
           <ResultBox data-name="Transmart" loading={loading.transmart} name="Transmart" content={result.transmart} />
           <ResultBox data-name="Niutrans" loading={loading.niutrans} name="Niutrans" content={result.niutrans} />
+          <ResultBox data-name="Baidu" loading={loading.baidu} name="Baidu" content={result.baidu} />
        </div>
   );
 }
-export function getResult() {return ['chatgpt', 'gemini', 'deeplx', 'microsoft', 'google', 'transmart', 'niutrans']}
+export function getResult() {return ['chatgpt', 'gemini', 'deeplx', 'microsoft', 'google', 'transmart', 'niutrans', 'baidu']}

@@ -8,6 +8,7 @@ export type TranslateResult = {
   google: string;
   transmart: string;
   niutrans: string;
+  baidu: string;
 };
 
 export type Translateloader = {
@@ -19,6 +20,7 @@ export type Translateloader = {
   google: boolean;
   transmart: boolean;
   niutrans: boolean;
+  baidu: boolean;
 };
 
 export type TranslateResponse = {
@@ -36,6 +38,7 @@ export const initializeTranslateState: TranslateResult = {
   google: "",
   transmart: "",
   niutrans: "",
+  baidu: "",
 };
 
 export const initializeTranslateloader: Translateloader = {
@@ -47,6 +50,7 @@ export const initializeTranslateloader: Translateloader = {
   google: false,
   transmart: false,
   niutrans: false,
+  baidu: false,
 };
 
 export async function translateContent(

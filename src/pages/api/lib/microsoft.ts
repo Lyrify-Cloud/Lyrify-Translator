@@ -15,9 +15,9 @@ export class Microsoft {
     this.authToken = "";
   }
 
-  async translate(text: string, targetLanguage: string, sourceLanguage = "en") {
-    if (sourceLanguage === "auto") {
-      sourceLanguage = "";
+  async translate(text: string, target: string, source = "en") {
+    if (source === "auto") {
+      source = "";
     }
     try {
       // 检测 JWT 是否存在/过期
@@ -30,7 +30,7 @@ export class Microsoft {
       }
 
       //请求 Microsoft translator API
-      const apiUrl = `${this.API_TRANSLATE}?from=${sourceLanguage}&to=${targetLanguage}&api-version=3.0&includeSentenceLength=true`;
+      const apiUrl = `${this.API_TRANSLATE}?from=${source}&to=${target}&api-version=3.0&includeSentenceLength=true`;
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${this.authToken}`,

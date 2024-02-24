@@ -8,12 +8,12 @@ export class Transmart {
 
   async translate(
     text: string,
-    targetLanguage: string,
-    sourceLanguage: string = "en",
+    target: string,
+    source: string = "en",
   ) {
     try {
-      const source_lang = sourceLanguage;
-      const target_lang = targetLanguage;
+      const source_lang = source;
+      const target_lang = target;
 
       const post_data = this.initData(source_lang, target_lang, text);
       const post_str = JSON.stringify(post_data);
@@ -47,18 +47,12 @@ export class Transmart {
     return {
       header: {
         fn: "auto_translation",
-        client_key:
-          "browser-chrome-110.0.0-Mac OS-df4bd4c5-a65d-44b2-a40f-42f34f3535f2-1677486696487",
+        client_key:"browser-edge-chromium-123.0.0-Windows_10-793961b6-556c-46fd-8092-8f975f2335d3-1708529948457",
       },
       type: "plain",
       model_category: "normal",
-      source: {
-        lang: source_lang,
-        text_list: [translate_text],
-      },
-      target: {
-        lang: target_lang,
-      },
+      source: {lang: source_lang,text_list: [translate_text]},
+      target: {lang: target_lang},
     };
   }
 }

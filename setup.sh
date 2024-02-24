@@ -78,6 +78,8 @@ if docker ps -a -q --filter "name=lyrify" | grep -q .; then
 		read -p "Gemini API Key: " gemini_api_key
 		read -p "NIUTRANS Key: " niutrans_key
 		read -p "DEEPL_X API URL: " deepl_x_api_url
+		read -p "BAIDU_APP_ID: " baidu_app_id
+		read -p "BAIDU_KEY: " baidu_key
 
 		cat <<EOL >/tmp/.Lyrify/config.txt
 openai_api_endpoint=${openai_api_endpoint:-https://api.openai.com/v1/chat/completions}
@@ -87,6 +89,8 @@ gemini_api_endpoint=${gemini_api_endpoint:-https://generativelanguage.googleapis
 gemini_api_key=$gemini_api_key
 niutrans_key=$niutrans_key
 deepl_x_api_url=$deepl_x_api_url
+baidu_app_id=$baidu_app_id
+baidu_key=$baidu_key
 EOL
 	fi
 
@@ -104,7 +108,8 @@ EOL
 	-e Gemini_API_KEY="$gemini_api_key" \
 	-e NIUTRANS_KEY="$niutrans_key" \
 	-e DEEPL_X_API_URL="$deepl_x_api_url" \
-	-e SOUGOU_Cookie="$sougou_cookie" \
+	-e BAIDU_APP_ID="$baidu_app_id" \
+	-e BAIDU_KEY="$baidu_key"
 	sipcink/lyrify:online
 
 	if [ $? -ne 0 ]; then
@@ -137,6 +142,8 @@ else
 	read -p "Gemini API Key: " gemini_api_key
 	read -p "NIUTRANS Key: " niutrans_key
 	read -p "DEEPL_X API URL: " deepl_x_api_url
+	read -p "BAIDU_APP_ID: " baidu_app_id
+	read -p "BAIDU_KEY: " baidu_key
 
 	cat <<EOL >config.txt
 openai_api_endpoint=${openai_api_endpoint:-https://api.openai.com/v1/chat/completions}
@@ -146,6 +153,8 @@ gemini_api_endpoint=${gemini_api_endpoint:-https://generativelanguage.googleapis
 gemini_api_key=$gemini_api_key
 niutrans_key=$niutrans_key
 deepl_x_api_url=$deepl_x_api_url
+baidu_app_id=$baidu_app_id
+baidu_key=$baidu_key
 EOL
 
 	docker run -d --name lyrify \
@@ -157,7 +166,8 @@ EOL
 	-e Gemini_API_KEY="$gemini_api_key" \
 	-e NIUTRANS_KEY="$niutrans_key" \
 	-e DEEPL_X_API_URL="$deepl_x_api_url" \
-	-e SOUGOU_Cookie="$sougou_cookie" \
+	-e BAIDU_APP_ID="$baidu_app_id" \
+	-e BAIDU_KEY="$baidu_key"
 	sipcink/lyrify:online
 
 	if [ $? -ne "0" ]; then
