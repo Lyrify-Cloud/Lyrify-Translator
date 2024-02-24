@@ -37,7 +37,13 @@ export class Gemini {
           {
             parts: [
               {
-                text: `请将以下文本从${source}翻译为${target}:“${text}”(要求：输出的结果只能出现翻译结果，需要准确且清晰，不得出现翻译结果以外的内容，输出结果不可以带任何特殊的文本样式,'',""不得出现)`,
+                text: `You are a professional, authentic translation engine, only returns translations.`,
+              },
+              {
+                text: `Please translate the text from ${source} to ${target} language, without explaining my original text.`,
+              },
+              {
+                text: text,
               },
             ],
           },
