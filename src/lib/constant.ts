@@ -10,13 +10,11 @@ export type Language = {
 export const languages: Language[] = [
   { key: "zh", value: "Chinese" },
   { key: "en", value: "English" },
-  { key: "nl", value: "Dutch" },
+  { key: "ja", value: "Japanese" },
+  { key: "ru", value: "Russian" },
   { key: "fr", value: "French" },
   { key: "de", value: "Deutsch" },
   { key: "it", value: "Italian" },
-  { key: "ja", value: "Japanese" },
-  { key: "pl", value: "Polish" },
-  { key: "pt", value: "Portuguese" },
-  { key: "ru", value: "Russian" },
   { key: "es", value: "Spanish" },
+  { key: "pt", value: "Portuguese" },
 ];

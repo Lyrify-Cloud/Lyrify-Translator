@@ -4,6 +4,12 @@ import MD5 from "md5";
 import axios from "axios";
 import { getErrorMessage } from "@/pages/api/lib/utils";
 
+const languageMap: Record<string, string> = {
+  "ja": "jp",
+  "fr": "fra",
+  "es": "spa",
+};
+
 export class Baidu {
   public APPID: string;
   public APPKEY: string;
@@ -13,6 +19,8 @@ export class Baidu {
     this.APPKEY = APPKEY;
   }
   async translate(text: string, target: string, source: string = "auto") {
+    target = languageMap[target] || target
+    source = languageMap[source] || source
     const salt = String(Math.random()).slice(2)
     const sign = MD5(this.APPID+text+salt+this.APPKEY)
     try {

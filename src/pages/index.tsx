@@ -38,12 +38,8 @@ export default function Home() {
   const [to, setTo] = useState<string>("zh");
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const [loader, setLoader] = useState<Translateloader>(
-    initializeTranslateloader,
-  );
-  const [result, setResult] = useState<TranslateResult>(
-    initializeTranslateState,
-  );
+  const [loader, setLoader] = useState<Translateloader>(initializeTranslateloader);
+  const [result, setResult] = useState<TranslateResult>(initializeTranslateState);
 
   const handleClick = () => {
     setIsExpanded(!isExpanded);
