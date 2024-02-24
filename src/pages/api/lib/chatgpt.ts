@@ -19,6 +19,17 @@ export class ChatGPT {
   }
 
   async translate(text: string, target: string, source: string = "auto") {
+    if (target === 'classical-chinese') {
+      target = '文言文'
+      if (source === 'zh') {
+        source = '白话文'
+      }
+    } if (source === 'classical-chinese') {
+      source = '文言文'
+      if (target === 'zh') {
+        target = '白话文'
+      }
+    }
     try {
       const headers = {
         "Content-Type": "application/json",

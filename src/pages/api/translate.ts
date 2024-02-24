@@ -7,6 +7,7 @@ import { GoogleInstance } from "./lib/google";
 import { GeminiInstance } from "./lib/gemini";
 import { TransmartInstance } from "./lib/transmart";
 import { NiutransInstance } from "./lib/niutrans";
+import { BaiduInstance } from "./lib/baidu";
 import { autodetect } from "./lib/autodetect";
 
 type TranslateResponse = {
@@ -39,7 +40,6 @@ export default async function handler(
     if (sourceLanguage.length === 0 || sourceLanguage === "auto")
       sourceLanguage = await autodetect(text);
 
-    // code from sipc
     const response = async (model: string) => {
       switch (model) {
         case "chatgpt":
@@ -50,6 +50,12 @@ export default async function handler(
           ).catch((e) => e.message);
         case "gemini":
           return await GeminiInstance.translate(
+            text,
+            targetLanguage,
+            sourceLanguage,
+          ).catch((e) => e.message);
+        case "baidu":
+          return await BaiduInstance.translate(
             text,
             targetLanguage,
             sourceLanguage,

@@ -36,6 +36,7 @@
     "@types/autosize": "^4.0.3",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/langdetect": "^0.2.2",
+    "@types/md5": "^2.3.5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-beautiful-dnd": "^13.1.8",
