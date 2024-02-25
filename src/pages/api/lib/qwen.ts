@@ -34,23 +34,23 @@ export class Qwen {
     try {
       const headers = {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.key}`,
+        "Authorization": `Bearer ${this.key}`,
       };
       const data = JSON.stringify({
         model: this.model,
         input: {
           messages: [
             {
-              role: "system",
-              content: `You are a professional, authentic translation engine, only returns translations.`,
+              "role": "system",
+              "content": `You are a professional, authentic translation engine, only returns translations.`,
             },
             {
-              role: "user",
-              content: `Please translate the text from ${source} to ${target} language, without explaining my original text.`,
+              "role": "user",
+              "content": `Please translate the text from ${source} to ${target} language, without explaining my original text, the text I will send you in the next sentence.`,
             },
             {
-              role: "user",
-              content: text,
+              "role": "user",
+              "content": text,
             },
           ],
         },
