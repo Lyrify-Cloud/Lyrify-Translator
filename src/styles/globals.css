@@ -198,8 +198,3 @@ main {
 .result-container p {
   text-align: justify;
 }
-
-@media (max-width: 680px) {
-  .result-container {
-  }
-}

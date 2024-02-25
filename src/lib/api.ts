@@ -3,6 +3,7 @@ import axios from "axios";
 export type TranslateResult = {
   chatgpt: string;
   gemini: string;
+  qwen: string;
   deeplx: string;
   microsoft: string;
   google: string;
@@ -15,6 +16,7 @@ export type Translateloader = {
   translate: boolean,
   chatgpt: boolean;
   gemini: boolean;
+  qwen: boolean;
   deeplx: boolean;
   microsoft: boolean;
   google: boolean;
@@ -33,6 +35,7 @@ export type TranslateResponse = {
 export const initializeTranslateState: TranslateResult = {
   chatgpt: "",
   gemini: "",
+  qwen: "",
   deeplx: "",
   microsoft: "",
   google: "",
@@ -45,6 +48,7 @@ export const initializeTranslateloader: Translateloader = {
   translate: false,
   chatgpt: false,
   gemini: false,
+  qwen: false,
   deeplx: false,
   microsoft: false,
   google: false,
