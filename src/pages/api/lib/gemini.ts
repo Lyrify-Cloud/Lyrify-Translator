@@ -37,13 +37,13 @@ export class Gemini {
           {
             parts: [
               {
-                text: `You are a professional, authentic translation engine, only returns translations.`,
+                "text": `You are a professional, authentic translation engine, only returns translations.`,
               },
               {
-                text: `Please translate the text from ${source} to ${target} language, without explaining my original text.`,
+                "text": `Please translate the text from ${source} to ${target} language, without explaining my original text, the text I will send you in the next sentence.`,
               },
               {
-                text: text,
+                "text": text,
               },
             ],
           },
