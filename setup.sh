@@ -77,9 +77,13 @@ if docker ps -a -q --filter "name=lyrify" | grep -q .; then
 		read -p "Gemini API Endpoint (Press Enter to use default): " gemini_api_endpoint
 		read -p "Gemini API Key: " gemini_api_key
 		read -p "NIUTRANS Key: " niutrans_key
-		read -p "DEEPL_X API URL: " deepl_x_api_url
-		read -p "BAIDU_APP_ID: " baidu_app_id
-		read -p "BAIDU_KEY: " baidu_key
+		read -p "DEEPL X API URL: " deepl_x_api_url
+		read -p "BAIDU APP ID: " baidu_app_id
+		read -p "BAIDU KEY: " baidu_key
+		read -p "Qwen API Endpoint (Press Enter to use default): " qwen_api_endpoint
+		read -p "Qwen API Key: " qwen_api_key
+		read -p "Qwen Model: " qwen_model
+
 
 		cat <<EOL >/tmp/.Lyrify/config.txt
 openai_api_endpoint=${openai_api_endpoint:-https://api.openai.com/v1/chat/completions}
@@ -91,6 +95,9 @@ niutrans_key=$niutrans_key
 deepl_x_api_url=$deepl_x_api_url
 baidu_app_id=$baidu_app_id
 baidu_key=$baidu_key
+qwen_api_endpoint=${qwen_api_endpoint-https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation}
+qwen_api_key=$qwen_api_key
+qwen_model=$qwen_model
 EOL
 	fi
 
@@ -109,7 +116,10 @@ EOL
 	-e NIUTRANS_KEY="$niutrans_key" \
 	-e DEEPL_X_API_URL="$deepl_x_api_url" \
 	-e BAIDU_APP_ID="$baidu_app_id" \
-	-e BAIDU_KEY="$baidu_key"
+	-e BAIDU_KEY="$baidu_key" \
+	-e QWEN_API_ENDPOINT="$qwen_api_endpoint" \
+	-e QWEN_API_KEY="$qwen_api_key" \
+	-e QWEN_MODEL="$qwen_model" \
 	sipcink/lyrify:latest
 
 	if [ $? -ne 0 ]; then
@@ -141,9 +151,13 @@ else
 	read -p "Gemini API Endpoint (Press Enter to use default): " gemini_api_endpoint
 	read -p "Gemini API Key: " gemini_api_key
 	read -p "NIUTRANS Key: " niutrans_key
-	read -p "DEEPL_X API URL: " deepl_x_api_url
-	read -p "BAIDU_APP_ID: " baidu_app_id
-	read -p "BAIDU_KEY: " baidu_key
+	read -p "DEEPL X API URL: " deepl_x_api_url
+	read -p "BAIDU APP ID: " baidu_app_id
+	read -p "BAIDU KEY: " baidu_key
+	read -p "Qwen API Endpoint (Press Enter to use default): " qwen_api_endpoint
+	read -p "Qwen API Key: " qwen_api_key
+	read -p "Qwen Model: " qwen_model
+
 
 	cat <<EOL >config.txt
 openai_api_endpoint=${openai_api_endpoint:-https://api.openai.com/v1/chat/completions}
@@ -155,6 +169,9 @@ niutrans_key=$niutrans_key
 deepl_x_api_url=$deepl_x_api_url
 baidu_app_id=$baidu_app_id
 baidu_key=$baidu_key
+qwen_api_endpoint=${qwen_api_endpoint-https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation}
+qwen_api_key=$qwen_api_key
+qwen_model=$qwen_model
 EOL
 
 	docker run -d --name lyrify \
@@ -167,7 +184,10 @@ EOL
 	-e NIUTRANS_KEY="$niutrans_key" \
 	-e DEEPL_X_API_URL="$deepl_x_api_url" \
 	-e BAIDU_APP_ID="$baidu_app_id" \
-	-e BAIDU_KEY="$baidu_key"
+	-e BAIDU_KEY="$baidu_key" \
+	-e QWEN_API_ENDPOINT="$qwen_api_endpoint" \
+	-e QWEN_API_KEY="$qwen_api_key" \
+	-e QWEN_MODEL="$qwen_model" \
 	sipcink/lyrify:latest
 
 	if [ $? -ne "0" ]; then

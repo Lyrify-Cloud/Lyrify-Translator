@@ -106,6 +106,7 @@ export function ResultContainer({ loading, result, isExpanded}: ResultContainerP
        <div className={`result-container ${isExpanded ? 'grid-cols-4' : 'grid-cols-3'} grid gap-4`}>
           <ResultBox data-name="ChatGPT" loading={loading.chatgpt} name="ChatGPT" content={result.chatgpt} />
           <ResultBox data-name="Gemini" loading={loading.gemini} name="Gemini" content={result.gemini} />
+          <ResultBox data-name="Qwen" loading={loading.qwen} name="Qwen" content={result.qwen} />
           <ResultBox data-name="DeepLX" loading={loading.deeplx} name="DeepL X" content={result.deeplx} />
           <ResultBox data-name="Microsoft" loading={loading.microsoft} name="Microsoft" content={result.microsoft} />
           <ResultBox data-name="Google" loading={loading.google} name="Google" content={result.google} />
@@ -115,4 +116,4 @@ export function ResultContainer({ loading, result, isExpanded}: ResultContainerP
        </div>
   );
 }
-export function getResult() {return ['chatgpt', 'gemini', 'deeplx', 'microsoft', 'google', 'transmart', 'niutrans', 'baidu']}
+export function getResult() {return ['chatgpt', 'gemini', 'qwen', 'deeplx', 'microsoft', 'google', 'transmart', 'niutrans', 'baidu']}
