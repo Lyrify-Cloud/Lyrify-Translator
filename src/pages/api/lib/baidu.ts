@@ -28,7 +28,7 @@ export class Baidu {
       const apiUrl =`http://api.fanyi.baidu.com/api/trans/vip/translate?q=${encodeURIComponent(text)}&from=${source}&to=${target}&appid=${this.APPID}&salt=${salt}&sign=${sign}`;
       const response = await axios.get(apiUrl);
       if (response.data) {
-        return response.data.trans_result.map((item: { dst: any; }) => item.dst).join("\n\n");
+        return response.data.trans_result.map((item: { dst: any; }) => item.dst).join("\n");
       } else {
         throw new Error("Invalid response from Baidu");
       }

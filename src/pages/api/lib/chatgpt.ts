@@ -19,36 +19,37 @@ export class ChatGPT {
   }
 
   async translate(text: string, target: string, source: string = "auto") {
-    if (target === 'classical-chinese') {
-      target = '文言文'
-      if (source === 'zh') {
-        source = '白话文'
+    if (target === "classical-chinese") {
+      target = "文言文";
+      if (source === "zh") {
+        source = "白话文";
       }
-    } if (source === 'classical-chinese') {
-      source = '文言文'
-      if (target === 'zh') {
-        target = '白话文'
+    }
+    if (source === "classical-chinese") {
+      source = "文言文";
+      if (target === "zh") {
+        target = "白话文";
       }
     }
     try {
       const headers = {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${this.key}`,
+        Authorization: `Bearer ${this.key}`,
       };
       const data = JSON.stringify({
         model: this.model,
         messages: [
           {
-            "role": "system",
-            "content": `You are a professional, authentic translation engine, only returns translations.`,
+            role: "system",
+            content: `You are a professional, authentic translation engine, only returns translations.`,
           },
           {
-            "role": "user",
-            "content": `Please translate the text from ${source} to ${target} language, without explaining my original text, the text I will send you in the next sentence.`,
+            role: "user",
+            content: `Please translate the text from ${source} to ${target} language,Translation will be enclosed within <start></end> tags, and they should not be included in the output.`,
           },
           {
-            "role": "user",
-            "content": text,
+            role: "user",
+            content: `<start>${text}</end>`,
           },
         ],
         temperature: 0.4,

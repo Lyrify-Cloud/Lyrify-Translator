@@ -12,20 +12,17 @@ export class Gemini {
     this.apiUrl = apiUrl;
   }
 
-  async translate(
-    text: string,
-    target: string,
-    source: string = "auto",
-  ) {
-    if (target === 'classical-chinese') {
-      target = '文言文'
-      if (source === 'zh') {
-        source = '白话文'
+  async translate(text: string, target: string, source: string = "auto") {
+    if (target === "classical-chinese") {
+      target = "文言文";
+      if (source === "zh") {
+        source = "白话文";
       }
-    } if (source === 'classical-chinese') {
-      source = '文言文'
-      if (target === 'zh') {
-        target = '白话文'
+    }
+    if (source === "classical-chinese") {
+      source = "文言文";
+      if (target === "zh") {
+        target = "白话文";
       }
     }
     try {
@@ -37,15 +34,33 @@ export class Gemini {
           {
             parts: [
               {
-                "text": `You are a professional, authentic translation engine, only returns translations.`,
+                text: `You are a professional, authentic translation engine, only returns translations.`,
               },
               {
-                "text": `Please translate the text from ${source} to ${target} language, without explaining my original text, the text I will send you in the next sentence.`,
+                text: `Please translate the text from ${source} to ${target} language,Translation will be enclosed within <start></end> tags, and they should not be included in the output.`,
               },
               {
-                "text": text,
+                text: `<start>${text}</end>`,
               },
             ],
+          },
+        ],
+        safetySettings: [
+          {
+            category: "HARM_CATEGORY_HARASSMENT",
+            threshold: "BLOCK_NONE",
+          },
+          {
+            category: "HARM_CATEGORY_HATE_SPEECH",
+            threshold: "BLOCK_NONE",
+          },
+          {
+            category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+            threshold: "BLOCK_NONE",
+          },
+          {
+            category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+            threshold: "BLOCK_NONE",
           },
         ],
       });
@@ -56,20 +71,6 @@ export class Gemini {
       );
       if (response.data.candidates && response.data.candidates[0].content) {
         return response.data.candidates[0].content.parts[0].text;
-      } else if (
-        response.data.promptFeedback &&
-        response.data.promptFeedback.blockReason
-      ) {
-        if (response.data.promptFeedback.blockReason == "SAFETY") {
-          return "Request intercepted.";
-        }
-      } else if (
-        response.data.candidates &&
-        response.data.candidates[0].finishReason
-      ) {
-        if (response.data.candidates[0].finishReason == "SAFETY") {
-          return "Request intercepted.";
-        }
       } else {
         throw new Error(
           "No translation result, no block reason, and no finish reason available",
