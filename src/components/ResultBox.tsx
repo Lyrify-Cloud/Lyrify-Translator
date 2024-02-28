@@ -4,7 +4,7 @@ import { TranslateResult, Translateloader } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { copyClipboard } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
-import Sortable from 'sortablejs'; 
+import Sortable from "sortablejs";
 
 export type ResultBoxProps = {
   name: string;
@@ -13,6 +13,8 @@ export type ResultBoxProps = {
 };
 
 export function ResultBox({ name, loading, content }: ResultBoxProps) {
+  content = content.replace("<start>", "");
+  content = content.replace("</end>", "");
   const task = useRef<NodeJS.Timeout | undefined>(undefined);
   const [copied, setCopied] = useState<boolean>(false);
   useEffect(() => {
@@ -26,7 +28,7 @@ export function ResultBox({ name, loading, content }: ResultBoxProps) {
     task.current = setTimeout(() => setCopied(false), 250);
   }, [copied]);
 
-  const formattedContent = content.replace(/\n/g, '<br>');
+  const formattedContent = content?.replace(/\n/g, "<br>");
 
   return (
     <Card>
@@ -44,7 +46,10 @@ export function ResultBox({ name, loading, content }: ResultBoxProps) {
           </div>
         ) : (
           <div>
-            <p className={`keep-all`} dangerouslySetInnerHTML={{ __html: formattedContent }} />
+            <p
+              className={`keep-all`}
+              dangerouslySetInnerHTML={{ __html: formattedContent }}
+            />
           </div>
         )}
 
@@ -81,39 +86,113 @@ export type ResultContainerProps = {
   isExpanded: boolean;
 };
 
-export function ResultContainer({ loading, result, isExpanded}: ResultContainerProps) {
+export function ResultContainer({
+  loading,
+  result,
+  isExpanded,
+}: ResultContainerProps) {
   useEffect(() => {
-      const container = document.querySelector('.result-container') as HTMLElement;
-      if (container) {
-          Sortable.create(container, {
-              animation: 150,
-              ghostClass: 'sortable-ghost',
-              store: {
-                  get: () => {
-                      const storedOrder = localStorage.getItem('resultBoxOrder');
-                      return storedOrder ? JSON.parse(storedOrder) : [];
-                  },
-                  set: (sortable:any) => {
-                      const order = sortable.toArray();
-                      localStorage.setItem('resultBoxOrder', JSON.stringify(order));
-                  },
-              },
-          });
-      }
-  }, [isExpanded]); 
+    const version = "1.0"
+    const localVersion = localStorage.getItem("version");
+    if (version !== localVersion) {
+      const keys = Object.keys(localStorage);
+      const filteredKeys = keys.filter(key => key !== 'theme');
+      filteredKeys.forEach(key => localStorage.removeItem(key));
+    }
+    localStorage.setItem("version", version);
 
-  return ( 
-       <div className={`result-container ${isExpanded ? 'grid-cols-4' : 'grid-cols-3'} grid gap-4`}>
-          <ResultBox data-name="ChatGPT" loading={loading.chatgpt} name="ChatGPT" content={result.chatgpt} />
-          <ResultBox data-name="Gemini" loading={loading.gemini} name="Gemini" content={result.gemini} />
-          <ResultBox data-name="Qwen" loading={loading.qwen} name="Qwen" content={result.qwen} />
-          <ResultBox data-name="DeepLX" loading={loading.deeplx} name="DeepL X" content={result.deeplx} />
-          <ResultBox data-name="Microsoft" loading={loading.microsoft} name="Microsoft" content={result.microsoft} />
-          <ResultBox data-name="Google" loading={loading.google} name="Google" content={result.google} />
-          <ResultBox data-name="Transmart" loading={loading.transmart} name="Transmart" content={result.transmart} />
-          <ResultBox data-name="Niutrans" loading={loading.niutrans} name="Niutrans" content={result.niutrans} />
-          <ResultBox data-name="Baidu" loading={loading.baidu} name="Baidu" content={result.baidu} />
-       </div>
+    const container = document.querySelector(
+      ".result-container",
+    ) as HTMLElement;
+    if (container) {
+      Sortable.create(container, {
+        animation: 150,
+        ghostClass: "sortable-ghost",
+        store: {
+          get: () => {
+            const storedOrder = localStorage.getItem("resultBoxOrder");
+            return storedOrder ? JSON.parse(storedOrder) : [];
+          },
+          set: (sortable: any) => {
+            const order = sortable.toArray();
+            localStorage.setItem("resultBoxOrder", JSON.stringify(order));
+          },
+        },
+      });
+    }
+  }, [isExpanded]);
+
+  return (
+    <div
+      className={`result-container ${isExpanded ? "grid-cols-4" : "grid-cols-3"} grid gap-4`}
+    >
+      <ResultBox
+        data-name="ChatGPT"
+        loading={loading.chatgpt}
+        name="ChatGPT"
+        content={result.chatgpt}
+      />
+      <ResultBox
+        data-name="Gemini"
+        loading={loading.gemini}
+        name="Gemini"
+        content={result.gemini}
+      />
+      <ResultBox
+        data-name="Qwen"
+        loading={loading.qwen}
+        name="Qwen"
+        content={result.qwen}
+      />
+      <ResultBox
+        data-name="DeepLX"
+        loading={loading.deeplx}
+        name="DeepL X"
+        content={result.deeplx}
+      />
+      <ResultBox
+        data-name="Microsoft"
+        loading={loading.microsoft}
+        name="Microsoft"
+        content={result.microsoft}
+      />
+      <ResultBox
+        data-name="Google"
+        loading={loading.google}
+        name="Google"
+        content={result.google}
+      />
+      <ResultBox
+        data-name="Transmart"
+        loading={loading.transmart}
+        name="Transmart"
+        content={result.transmart}
+      />
+      <ResultBox
+        data-name="Niutrans"
+        loading={loading.niutrans}
+        name="Niutrans"
+        content={result.niutrans}
+      />
+      <ResultBox
+        data-name="Baidu"
+        loading={loading.baidu}
+        name="Baidu"
+        content={result.baidu}
+      />
+    </div>
   );
 }
-export function getResult() {return ['chatgpt', 'gemini', 'qwen', 'deeplx', 'microsoft', 'google', 'transmart', 'niutrans', 'baidu']}
+export function getResult() {
+  return [
+    "chatgpt",
+    "gemini",
+    "qwen",
+    "deeplx",
+    "microsoft",
+    "google",
+    "transmart",
+    "niutrans",
+    "baidu",
+  ];
+}
