@@ -83,7 +83,9 @@ if docker ps -a -q --filter "name=lyrify" | grep -q .; then
 		read -p "Qwen API Endpoint (Press Enter to use default): " qwen_api_endpoint
 		read -p "Qwen API Key: " qwen_api_key
 		read -p "Qwen Model: " qwen_model
-
+        read -p "GLM API Endpoint (Press Enter to use default):" glm_api_endpoint
+        read -p "GLM API Key: " glm_api_key
+		read -p "GLM Model: " glm_model
 
 		cat <<EOL >/tmp/.Lyrify/config.txt
 openai_api_endpoint=${openai_api_endpoint:-https://api.openai.com/v1/chat/completions}
@@ -98,6 +100,9 @@ baidu_key=$baidu_key
 qwen_api_endpoint=${qwen_api_endpoint-https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation}
 qwen_api_key=$qwen_api_key
 qwen_model=$qwen_model
+glm_api_endpoint=${glm_api_endpoint-https://open.bigmodel.cn/api/paas/v4/chat/completions}
+glm_api_key=$glm_api_key
+glm_model=$glm_model
 EOL
 	fi
 
@@ -120,6 +125,9 @@ EOL
 	-e QWEN_API_ENDPOINT="$qwen_api_endpoint" \
 	-e QWEN_API_KEY="$qwen_api_key" \
 	-e QWEN_MODEL="$qwen_model" \
+    -e GLM_API_ENDPOINT="$glm_api_endpoint" \
+	-e GLM_API_KEY="$glm_api_key" \
+	-e GLM_MODEL="$glm_model" \
 	sipcink/lyrify:online
 
 	if [ $? -ne 0 ]; then
@@ -157,7 +165,9 @@ else
 	read -p "Qwen API Endpoint (Press Enter to use default): " qwen_api_endpoint
 	read -p "Qwen API Key: " qwen_api_key
 	read -p "Qwen Model: " qwen_model
-
+    read -p "GLM API Endpoint (Press Enter to use default):" glm_api_endpoint
+    read -p "GLM API Key: " glm_api_key
+	read -p "GLM Model: " glm_model
 
 	cat <<EOL >config.txt
 openai_api_endpoint=${openai_api_endpoint:-https://api.openai.com/v1/chat/completions}
@@ -172,6 +182,9 @@ baidu_key=$baidu_key
 qwen_api_endpoint=${qwen_api_endpoint-https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation}
 qwen_api_key=$qwen_api_key
 qwen_model=$qwen_model
+glm_api_endpoint=${glm_api_endpoint-https://open.bigmodel.cn/api/paas/v4/chat/completions}
+glm_api_key=$glm_api_key
+glm_model=$glm_model
 EOL
 
 	docker run -d --name lyrify \
@@ -188,6 +201,9 @@ EOL
 	-e QWEN_API_ENDPOINT="$qwen_api_endpoint" \
 	-e QWEN_API_KEY="$qwen_api_key" \
 	-e QWEN_MODEL="$qwen_model" \
+    -e GLM_API_ENDPOINT="$glm_api_endpoint" \
+	-e GLM_API_KEY="$glm_api_key" \
+	-e GLM_MODEL="$glm_model" \
 	sipcink/lyrify:online
 
 	if [ $? -ne "0" ]; then
