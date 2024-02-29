@@ -9,6 +9,7 @@ import { TransmartInstance } from "./lib/transmart";
 import { NiutransInstance } from "./lib/niutrans";
 import { BaiduInstance } from "./lib/baidu";
 import { QwenInstance } from "./lib/qwen";
+import { GLMInstance } from "./lib/glm";
 import { autodetect } from "./lib/autodetect";
 
 type TranslateResponse = {
@@ -57,6 +58,12 @@ export default async function handler(
           ).catch((e) => e.message);
         case "qwen":
           return await QwenInstance.translate(
+            text,
+            targetLanguage,
+            sourceLanguage,
+          ).catch((e) => e.message);
+        case "glm":
+          return await GLMInstance.translate(
             text,
             targetLanguage,
             sourceLanguage,

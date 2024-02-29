@@ -92,12 +92,12 @@ export function ResultContainer({
   isExpanded,
 }: ResultContainerProps) {
   useEffect(() => {
-    const version = "1.0"
+    const version = "1.1";
     const localVersion = localStorage.getItem("version");
     if (version !== localVersion) {
       const keys = Object.keys(localStorage);
-      const filteredKeys = keys.filter(key => key !== 'theme');
-      filteredKeys.forEach(key => localStorage.removeItem(key));
+      const filteredKeys = keys.filter((key) => key !== "theme");
+      filteredKeys.forEach((key) => localStorage.removeItem(key));
     }
     localStorage.setItem("version", version);
 
@@ -127,57 +127,53 @@ export function ResultContainer({
       className={`result-container ${isExpanded ? "grid-cols-4" : "grid-cols-3"} grid gap-4`}
     >
       <ResultBox
-        data-name="ChatGPT"
-        loading={loading.chatgpt}
         name="ChatGPT"
+        loading={loading.chatgpt}
         content={result.chatgpt}
       />
       <ResultBox
-        data-name="Gemini"
-        loading={loading.gemini}
         name="Gemini"
+        loading={loading.gemini}
         content={result.gemini}
       />
       <ResultBox
-        data-name="Qwen"
-        loading={loading.qwen}
         name="Qwen"
+        loading={loading.qwen}
         content={result.qwen}
       />
       <ResultBox
-        data-name="DeepLX"
-        loading={loading.deeplx}
+        name="GLM"
+        loading={loading.qwen}
+        content={result.glm}
+      />
+      <ResultBox
         name="DeepL X"
+        loading={loading.deeplx}
         content={result.deeplx}
       />
       <ResultBox
-        data-name="Microsoft"
-        loading={loading.microsoft}
         name="Microsoft"
+        loading={loading.microsoft}
         content={result.microsoft}
       />
       <ResultBox
-        data-name="Google"
-        loading={loading.google}
         name="Google"
+        loading={loading.google}
         content={result.google}
       />
       <ResultBox
-        data-name="Transmart"
-        loading={loading.transmart}
         name="Transmart"
+        loading={loading.transmart}
         content={result.transmart}
       />
       <ResultBox
-        data-name="Niutrans"
-        loading={loading.niutrans}
         name="Niutrans"
+        loading={loading.niutrans}
         content={result.niutrans}
       />
       <ResultBox
-        data-name="Baidu"
-        loading={loading.baidu}
         name="Baidu"
+        loading={loading.baidu}
         content={result.baidu}
       />
     </div>
@@ -188,6 +184,7 @@ export function getResult() {
     "chatgpt",
     "gemini",
     "qwen",
+    "glm",
     "deeplx",
     "microsoft",
     "google",
