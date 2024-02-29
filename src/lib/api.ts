@@ -4,6 +4,7 @@ export type TranslateResult = {
   chatgpt: string;
   gemini: string;
   qwen: string;
+  glm: string;
   deeplx: string;
   microsoft: string;
   google: string;
@@ -17,6 +18,7 @@ export type Translateloader = {
   chatgpt: boolean;
   gemini: boolean;
   qwen: boolean;
+  glm: boolean;
   deeplx: boolean;
   microsoft: boolean;
   google: boolean;
@@ -36,6 +38,7 @@ export const initializeTranslateState: TranslateResult = {
   chatgpt: "",
   gemini: "",
   qwen: "",
+  glm: "",
   deeplx: "",
   microsoft: "",
   google: "",
@@ -49,6 +52,7 @@ export const initializeTranslateloader: Translateloader = {
   chatgpt: false,
   gemini: false,
   qwen: false,
+  glm: false,
   deeplx: false,
   microsoft: false,
   google: false,
