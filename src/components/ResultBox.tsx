@@ -127,23 +127,33 @@ export function ResultContainer({
       className={`result-container ${isExpanded ? "grid-cols-4" : "grid-cols-3"} grid gap-4`}
     >
       <ResultBox
-        name="ChatGPT"
+        name="ChatGPT 3.5"
         loading={loading.chatgpt}
         content={result.chatgpt}
       />
       <ResultBox
-        name="Gemini"
+        name="ChatGPT 4"
+        loading={loading.chatgpt4}
+        content={result.chatgpt4}
+      />
+      <ResultBox
+        name="Gemini Pro"
         loading={loading.gemini}
         content={result.gemini}
       />
+      <ResultBox 
+        name="Claude 3 Sonnet"
+        loading={loading.claude}
+        content={result.claude}
+      />
       <ResultBox
-        name="Qwen"
+        name="Qwen Turbo"
         loading={loading.qwen}
         content={result.qwen}
       />
-      <ResultBox
-        name="GLM"
-        loading={loading.qwen}
+      <ResultBox 
+        name="GLM 3 Turbo"
+        loading={loading.glm}
         content={result.glm}
       />
       <ResultBox
@@ -182,7 +192,9 @@ export function ResultContainer({
 export function getResult() {
   return [
     "chatgpt",
+    "chatgpt4",
     "gemini",
+    "claude",
     "qwen",
     "glm",
     "deeplx",

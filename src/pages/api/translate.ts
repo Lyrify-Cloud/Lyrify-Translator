@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import { ChatNioInstance } from "./lib/chatnio";
 import { ChatGPTInstance } from "./lib/chatgpt";
 import { DeeplXInstance } from "./lib/deeplx";
 import { MicrosoftInstance } from "./lib/microsoft";
@@ -46,6 +47,14 @@ export default async function handler(
       switch (model) {
         case "chatgpt":
           return await ChatGPTInstance.translate(
+            "3",
+            text,
+            targetLanguage,
+            sourceLanguage,
+          ).catch((e) => e.message);
+        case "chatgpt4":
+          return await ChatGPTInstance.translate(
+            "4",
             text,
             targetLanguage,
             sourceLanguage,
@@ -58,6 +67,13 @@ export default async function handler(
           ).catch((e) => e.message);
         case "qwen":
           return await QwenInstance.translate(
+            text,
+            targetLanguage,
+            sourceLanguage,
+          ).catch((e) => e.message);
+        case "claude":
+          return await ChatNioInstance.translate(
+            "claude-3-sonnet-20240229",
             text,
             targetLanguage,
             sourceLanguage,

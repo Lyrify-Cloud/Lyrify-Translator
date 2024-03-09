@@ -2,8 +2,10 @@ import axios from "axios";
 
 export type TranslateResult = {
   chatgpt: string;
+  chatgpt4: string;
   gemini: string;
   qwen: string;
+  claude: string;
   glm: string;
   deeplx: string;
   microsoft: string;
@@ -14,10 +16,12 @@ export type TranslateResult = {
 };
 
 export type Translateloader = {
-  translate: boolean,
+  translate: boolean;
   chatgpt: boolean;
+  chatgpt4: boolean;
   gemini: boolean;
   qwen: boolean;
+  claude: boolean;
   glm: boolean;
   deeplx: boolean;
   microsoft: boolean;
@@ -36,8 +40,10 @@ export type TranslateResponse = {
 
 export const initializeTranslateState: TranslateResult = {
   chatgpt: "",
+  chatgpt4: "",
   gemini: "",
   qwen: "",
+  claude: "",
   glm: "",
   deeplx: "",
   microsoft: "",
@@ -50,8 +56,10 @@ export const initializeTranslateState: TranslateResult = {
 export const initializeTranslateloader: Translateloader = {
   translate: false,
   chatgpt: false,
+  chatgpt4: false,
   gemini: false,
   qwen: false,
+  claude: false,
   glm: false,
   deeplx: false,
   microsoft: false,
