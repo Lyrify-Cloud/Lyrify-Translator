@@ -1,6 +1,6 @@
 // code from sipc
 import axios from "axios";
-const { detectOne } = require("langdetect");
+import { detectOne } from "langdetect";
 
 const detectionMap: Record<string, string> = {
   "zh-cn": "zh",

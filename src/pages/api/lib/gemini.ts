@@ -1,4 +1,4 @@
-const axios = require("axios");
+import axios from "axios";
 import { getErrorMessage } from "@/pages/api/lib/utils";
 
 export class Gemini {

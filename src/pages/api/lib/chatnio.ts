@@ -3,22 +3,11 @@
 import axios from "axios";
 import { getErrorMessage } from "@/pages/api/lib/utils";
 
-export class ChatGPT {
+export class ChatNio {
   public key: string;
-  public apiUrl: string;
-  public model: string;
-  public model4: string;
 
-  constructor(
-    key: string,
-    apiUrl = "https://api.openai.com/v1/chat/completions",
-    model = "gpt-3.5-turbo",
-    model4 = "gpt-4",
-  ) {
+  constructor(key: string) {
     this.key = key;
-    this.apiUrl = apiUrl;
-    this.model = model;
-    this.model4 = model4;
   }
 
   async translate(
@@ -39,21 +28,13 @@ export class ChatGPT {
         target = "白话文";
       }
     }
-    const models = (model:string) =>{
-      if (model === '3') {
-        return this.model
-      }
-      if (model === '4') {
-        return this.model4
-      }
-    }
     try {
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${this.key}`,
       };
       const data = JSON.stringify({
-        model: models(model),
+        model,
         messages: [
           {
             role: "system",
@@ -70,7 +51,11 @@ export class ChatGPT {
         ],
         temperature: 0.7,
       });
-      const response = await axios.post(this.apiUrl, data, { headers });
+      const response = await axios.post(
+        "https://api.chatnio.net/v1/chat/completions",
+        data,
+        { headers },
+      );
       return response.data.choices[0].message.content;
     } catch (error) {
       throw new Error(`Error while translating: ${getErrorMessage(error)}`);
@@ -78,9 +63,4 @@ export class ChatGPT {
   }
 }
 
-export const ChatGPTInstance = new ChatGPT(
-  process.env.OpenAI_API_KEY!,
-  process.env.OpenAI_API_ENDPOINT!,
-  process.env.OpenAI_MODEL!,
-  process.env.OpenAI_MODEL_4!,
-);
+export const ChatNioInstance = new ChatNio(process.env.ChatNio_API_KEY!);
