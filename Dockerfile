@@ -1,9 +1,9 @@
-FROM astefanutti/scratch-node:latest
+FROM node:18-alpine
 
 WORKDIR /app
 
 COPY . .
-RUN npm install && npm run build
+RUN npm install --production && npm run build
 
 EXPOSE 3000
 
