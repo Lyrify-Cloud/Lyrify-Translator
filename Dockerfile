@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM denoland/deno:distroless
 
 WORKDIR /app
 
