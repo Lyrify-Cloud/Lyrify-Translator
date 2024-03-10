@@ -187,8 +187,17 @@ export default function Home() {
                   className={`mt-2`}
                   variant={`default`}
                   disabled={loader.translate}
-                  onClick={submit}
                   data-umami-event={`${from}>${to}`}
+                  onClick={() => {
+                    if (from === to) {
+                      toast({
+                        title: "Translate Error",
+                        description: '源语言和目标语言不能相同',
+                      });
+                    } else {
+                      submit()
+                    }
+                  }}
                 >
                   {loader.translate && (
                     <Loader2 className={`h-4 w-4 mr-1 animate-spin`} />

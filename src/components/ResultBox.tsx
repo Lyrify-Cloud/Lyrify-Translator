@@ -92,7 +92,7 @@ export function ResultContainer({
   isExpanded,
 }: ResultContainerProps) {
   useEffect(() => {
-    const version = "1.1";
+    const version = "1.2";
     const localVersion = localStorage.getItem("version");
     if (version !== localVersion) {
       const keys = Object.keys(localStorage);
