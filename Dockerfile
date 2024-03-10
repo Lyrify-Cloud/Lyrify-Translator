@@ -1,4 +1,4 @@
-FROM denoland/deno:distroless
+FROM node:slim
 
 WORKDIR /app
 
