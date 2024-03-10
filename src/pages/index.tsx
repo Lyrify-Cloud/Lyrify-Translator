@@ -9,6 +9,7 @@ import {
   MessagesSquare,
   ChevronsLeftRight,
   ChevronsRightLeft,
+  HandCoins,
 } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
@@ -38,8 +39,12 @@ export default function Home() {
   const [to, setTo] = useState<string>("zh");
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const [loader, setLoader] = useState<Translateloader>(initializeTranslateloader);
-  const [result, setResult] = useState<TranslateResult>(initializeTranslateState);
+  const [loader, setLoader] = useState<Translateloader>(
+    initializeTranslateloader,
+  );
+  const [result, setResult] = useState<TranslateResult>(
+    initializeTranslateState,
+  );
 
   const handleClick = () => {
     setIsExpanded(!isExpanded);
@@ -166,10 +171,11 @@ export default function Home() {
                   onChange={setFrom}
                   placeholder={`Source Language`}
                 />
-                <ChevronRight className={`shrink-0 w-3 h-3 mx-2`}
+                <ChevronRight
+                  className={`shrink-0 w-3 h-3 mx-2`}
                   onClick={() => {
                     const temp = from;
-                    if (temp != 'auto') {
+                    if (temp != "auto") {
                       setFrom(to);
                       setTo(temp);
                     }
@@ -182,6 +188,14 @@ export default function Home() {
                 />
               </div>
               <div className={`flex flex-row`}>
+                <Button
+                  className={`mt-2 bg-[#FFD700] `}
+                  asChild
+                >
+                  <Link href={"https://sipc.ink/sponsor"} target={`_blank`}>
+                    <HandCoins className={`h-5 w-5`} />
+                  </Link>
+                </Button>
                 <div className={`flex-grow`} />
                 <Button
                   className={`mt-2`}
@@ -192,10 +206,10 @@ export default function Home() {
                     if (from === to) {
                       toast({
                         title: "Translate Error",
-                        description: '源语言和目标语言不能相同',
+                        description: "源语言和目标语言不能相同",
                       });
                     } else {
-                      submit()
+                      submit();
                     }
                   }}
                 >
