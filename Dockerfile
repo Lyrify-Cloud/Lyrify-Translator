@@ -1,4 +1,4 @@
-FROM node:slim
+FROM astefanutti/scratch-node:latest
 
 WORKDIR /app
 
