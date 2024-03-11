@@ -141,11 +141,11 @@ export function ResultContainer({
         loading={loading.gemini}
         content={result.gemini}
       />
-      <ResultBox 
+      {/* <ResultBox 
         name="Claude 3 Sonnet"
         loading={loading.claude}
         content={result.claude}
-      />
+      /> */}
       <ResultBox
         name="Qwen Turbo"
         loading={loading.qwen}
@@ -194,7 +194,7 @@ export function getResult() {
     "chatgpt",
     "chatgpt4",
     "gemini",
-    "claude",
+    // "claude",
     "qwen",
     "glm",
     "deeplx",
