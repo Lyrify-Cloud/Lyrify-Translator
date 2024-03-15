@@ -2,14 +2,21 @@ import axios from "axios";
 import { getErrorMessage } from "@/pages/api/lib/utils";
 
 export class Gemini {
-  public key: string;
+  public keys: string[];
   public apiUrl: string;
+  private currentKeyIndex: number;
+
   constructor(
-    key: string,
+    keys: string | string[],
     apiUrl = "https://generativelanguage.googleapis.com",
   ) {
-    this.key = key;
+    if (typeof keys === 'string') {
+      this.keys = [keys];
+    } else {
+      this.keys = keys;
+    }
     this.apiUrl = apiUrl;
+    this.currentKeyIndex = 0;
   }
 
   async translate(text: string, target: string, source: string = "auto") {
@@ -64,11 +71,13 @@ export class Gemini {
           },
         ],
       });
+      this.currentKeyIndex = (this.currentKeyIndex + 1) % this.keys.length;
       const response = await axios.post(
-        `${this.apiUrl}/v1beta/models/gemini-pro:generateContent?key=${this.key}`,
+        `${this.apiUrl}/v1beta/models/gemini-pro:generateContent?key=${this.keys[this.currentKeyIndex]}`,
         data,
         { headers },
       );
+
       if (response.data.candidates && response.data.candidates[0].content) {
         return response.data.candidates[0].content.parts[0].text;
       } else {
@@ -77,13 +86,12 @@ export class Gemini {
         );
       }
     } catch (error) {
-      console.log(JSON.stringify(error));
       throw new Error(`Error while translating: ${getErrorMessage(error)}`);
     }
   }
 }
 
 export const GeminiInstance = new Gemini(
-    process.env.Gemini_API_KEY!,
-    process.env.Gemini_API_ENDPOINT!
+  process.env.Gemini_API_KEY!.split(','),
+  process.env.Gemini_API_ENDPOINT!
 );
