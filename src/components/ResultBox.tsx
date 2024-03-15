@@ -131,11 +131,11 @@ export function ResultContainer({
         loading={loading.chatgpt}
         content={result.chatgpt}
       />
-      <ResultBox
+      {/* <ResultBox
         name="ChatGPT 4"
         loading={loading.chatgpt4}
         content={result.chatgpt4}
-      />
+      /> */}
       <ResultBox
         name="Gemini Pro"
         loading={loading.gemini}
@@ -192,7 +192,7 @@ export function ResultContainer({
 export function getResult() {
   return [
     "chatgpt",
-    "chatgpt4",
+    // "chatgpt4",
     "gemini",
     // "claude",
     "qwen",

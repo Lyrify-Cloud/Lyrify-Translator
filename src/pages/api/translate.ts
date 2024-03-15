@@ -52,13 +52,13 @@ export default async function handler(
             targetLanguage,
             sourceLanguage,
           ).catch((e) => e.message);
-        case "chatgpt4":
-          return await ChatGPTInstance.translate(
-            "4",
-            text,
-            targetLanguage,
-            sourceLanguage,
-          ).catch((e) => e.message);
+        // case "chatgpt4":
+        //   return await ChatGPTInstance.translate(
+        //     "4",
+        //     text,
+        //     targetLanguage,
+        //     sourceLanguage,
+        //   ).catch((e) => e.message);
         case "gemini":
           return await GeminiInstance.translate(
             text,
@@ -71,13 +71,13 @@ export default async function handler(
             targetLanguage,
             sourceLanguage,
           ).catch((e) => e.message);
-        case "claude":
-          return await ChatNioInstance.translate(
-            "claude-3-sonnet-20240229",
-            text,
-            targetLanguage,
-            sourceLanguage,
-          ).catch((e) => e.message);
+        // case "claude":
+        //   return await ChatNioInstance.translate(
+        //     "claude-3-sonnet-20240229",
+        //     text,
+        //     targetLanguage,
+        //     sourceLanguage,
+        //   ).catch((e) => e.message);
         case "glm":
           return await GLMInstance.translate(
             text,
