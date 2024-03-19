@@ -38,14 +38,25 @@ bash -c "$(curl -fsSLk https://raw.githubusercontent.com/SIPC/Lyrify/main/setup.
 ### Docker 部署
 
 ```shell
-docker run -d --name lyrify \
-  -p 3000:3000 \
-  -e OpenAI_API_KEY='sk-...' \
-  -e OpenAI_API_ENDPOINT='https://api.openai.com/v1/chat/completions' \
-  -e OpenAI_MODEL='gpt-3.5-turbo' \
-  -e NIUTRANS_KEY='...' \
-  -e DEEPL_X_API_URL='...' \
-  sipcink/lyrify:latest
+	docker run -d --name lyrify \
+	-p 3000:3000 \
+    -e ChatNio_API_KEY="$chatnio_api_key" \
+	-e OpenAI_API_ENDPOINT="$openai_api_endpoint" \
+	-e OpenAI_API_KEY="$openai_api_key" \
+	-e OpenAI_MODEL="$openai_model" \
+	-e Gemini_API_ENDPOINT="$gemini_api_endpoint" \
+	-e Gemini_API_KEY="$gemini_api_key" \
+	-e NIUTRANS_KEY="$niutrans_key" \
+	-e DEEPL_X_API_URL="$deepl_x_api_url" \
+	-e BAIDU_APP_ID="$baidu_app_id" \
+	-e BAIDU_KEY="$baidu_key" \
+	-e QWEN_API_ENDPOINT="$qwen_api_endpoint" \
+	-e QWEN_API_KEY="$qwen_api_key" \
+	-e QWEN_MODEL="$qwen_model" \
+    -e GLM_API_ENDPOINT="$glm_api_endpoint" \
+	-e GLM_API_KEY="$glm_api_key" \
+	-e GLM_MODEL="$glm_model" \
+	sipcink/lyrify:latest
 ```
 
 > Github Workflow 自动打包

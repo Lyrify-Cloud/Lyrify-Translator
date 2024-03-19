@@ -71,6 +71,7 @@ if docker ps -a -q --filter "name=lyrify" | grep -q .; then
 		source "/tmp/.Lyrify/config.txt"
 	else
 		echo "config.txt 未找到，请重新输入以下信息以配置 Lyrify:"
+		read -p "Chat Nio API Key: " chatnio_api_key
 		read -p "OpenAI API Endpoint (Press Enter to use default)" openai_api_endpoint
 		read -p "OpenAI API Key: " openai_api_key
 		read -p "OpenAI Model: " openai_model
@@ -88,6 +89,7 @@ if docker ps -a -q --filter "name=lyrify" | grep -q .; then
 		read -p "GLM Model: " glm_model
 
 		cat <<EOL >/tmp/.Lyrify/config.txt
+chatnio_api_key=$chatnio_api_key
 openai_api_endpoint=${openai_api_endpoint:-https://api.openai.com/v1/chat/completions}
 openai_api_key=$openai_api_key
 openai_model=$openai_model
@@ -113,6 +115,7 @@ EOL
 	docker stop lyrify >/dev/null 2>&1 && docker rm lyrify >/dev/null 2>&1
 	docker run -d --name lyrify \
 	-p 3000:3000 \
+    -e ChatNio_API_KEY="$chatnio_api_key" \
 	-e OpenAI_API_ENDPOINT="$openai_api_endpoint" \
 	-e OpenAI_API_KEY="$openai_api_key" \
 	-e OpenAI_MODEL="$openai_model" \
@@ -153,6 +156,7 @@ else
 	cd "/tmp/.Lyrify"
 
 	info "请输入以下信息以配置 Lyrify:"
+	read -p "Chat Nio API Key: " chatnio_api_key
 	read -p "OpenAI API Endpoint (Press Enter to use default): " openai_api_endpoint
 	read -p "OpenAI API Key: " openai_api_key
 	read -p "OpenAI Model: " openai_model
@@ -170,6 +174,7 @@ else
 	read -p "GLM Model: " glm_model
 
 	cat <<EOL >config.txt
+chatnio_api_key=$chatnio_api_key
 openai_api_endpoint=${openai_api_endpoint:-https://api.openai.com/v1/chat/completions}
 openai_api_key=$openai_api_key
 openai_model=$openai_model
@@ -189,6 +194,7 @@ EOL
 
 	docker run -d --name lyrify \
 	-p 3000:3000 \
+    -e ChatNio_API_KEY="$chatnio_api_key" \
 	-e OpenAI_API_ENDPOINT="$openai_api_endpoint" \
 	-e OpenAI_API_KEY="$openai_api_key" \
 	-e OpenAI_MODEL="$openai_model" \
