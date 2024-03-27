@@ -181,11 +181,11 @@ export function ResultContainer({
         loading={loading.niutrans}
         content={result.niutrans}
       />
-      <ResultBox
+      {/* <ResultBox
         name="Baidu"
         loading={loading.baidu}
         content={result.baidu}
-      />
+      /> */}
     </div>
   );
 }
@@ -202,6 +202,6 @@ export function getResult() {
     "google",
     "transmart",
     "niutrans",
-    "baidu",
+    // "baidu",
   ];
 }

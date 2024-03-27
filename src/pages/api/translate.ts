@@ -84,12 +84,12 @@ export default async function handler(
             targetLanguage,
             sourceLanguage,
           ).catch((e) => e.message);
-        case "baidu":
-          return await BaiduInstance.translate(
-            text,
-            targetLanguage,
-            sourceLanguage,
-          ).catch((e) => e.message);
+        // case "baidu":
+        //   return await BaiduInstance.translate(
+        //     text,
+        //     targetLanguage,
+        //     sourceLanguage,
+        //   ).catch((e) => e.message);
         case "deeplx":
           return await DeeplXInstance.translate(
             text,
